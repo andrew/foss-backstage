@@ -40,7 +40,7 @@ end
 
 def api_ping(base_url, full_name)
   client = ecosystems_client(base_url)
-  response = client.get("hosts/#{ECOSYSTEMS_HOST}/repositories/#{full_name}/ping")
+  response = client.get("hosts/#{ECOSYSTEMS_HOST}/repositories/#{full_name}/ping", priority: true)
   response.status
 rescue Faraday::Error => e
   puts " error: #{e.message}"
