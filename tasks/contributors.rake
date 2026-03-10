@@ -1,51 +1,5 @@
-require "json"
-require "faraday"
-require "faraday/retry"
-require "fileutils"
-
-ECOSYSTEMS_HOST = "GitHub"
-COMMITS_API = "https://commits.ecosyste.ms/api/v1/"
-ISSUES_API = "https://issues.ecosyste.ms/api/v1/"
-USER_AGENT = "foss-backstage/1.0 (andrew@nesbitt.io)"
-
-def ecosystems_client(base_url)
-  Faraday.new(url: base_url) do |f|
-    f.headers["User-Agent"] = USER_AGENT
-    f.headers["Accept"] = "application/json"
-    f.request :retry, max: 3, interval: 1, backoff_factor: 2,
-      retry_statuses: [429, 500, 502, 503],
-      retry_block: -> (env, *) {
-        reset = env.response_headers["x-ratelimit-reset"]
-        if reset
-          wait = [reset.to_i - Time.now.to_i, 1].max
-          puts " rate limited, sleeping #{wait}s..."
-          sleep wait
-        end
-      }
-  end
-end
-
-def api_get(base_url, path)
-  client = ecosystems_client(base_url)
-  response = client.get(path)
-  return nil unless response.success?
-  JSON.parse(response.body)
-rescue Faraday::Error => e
-  puts " error (#{base_url}#{path}): #{e.message}"
-  nil
-rescue JSON::ParserError => e
-  puts " JSON error (#{base_url}#{path}): #{response.body[0..100]}"
-  nil
-end
-
-def api_ping(base_url, full_name)
-  client = ecosystems_client(base_url)
-  response = client.get("hosts/#{ECOSYSTEMS_HOST}/repositories/#{full_name}/ping", priority: true)
-  response.status
-rescue Faraday::Error => e
-  puts " error: #{e.message}"
-  nil
-end
+require_relative "shared"
+require "set"
 
 namespace :contributors do
   desc "Ping commits + issues ecosyste.ms to index repos (LIMIT=n to restrict orgs)"
@@ -154,6 +108,9 @@ namespace :contributors do
   desc "Summarize collected contributor data"
   task :summary do
     dir = "data/contributors"
+    all_logins = Set.new
+    all_emails = Set.new
+    totals = { orgs: 0, commits: 0, maintainer: 0 }
 
     Dir.glob(File.join(dir, "*.json")).sort.each do |file|
       org = File.basename(file, ".json")
@@ -162,6 +119,21 @@ namespace :contributors do
       total_maintainer = contributors.sum { |c| c["maintainer_activity"] }
       with_login = contributors.count { |c| c["login"] }
       puts "#{org}: #{contributors.size} contributors (#{with_login} with login), #{total_commits} commits, #{total_maintainer} maintainer activities"
+
+      contributors.each do |c|
+        if c["login"]
+          all_logins << c["login"]
+        elsif c["email"]
+          all_emails << c["email"]
+        end
+      end
+      totals[:orgs] += 1
+      totals[:commits] += total_commits
+      totals[:maintainer] += total_maintainer
     end
+
+    unique = all_logins.size + all_emails.size
+    puts
+    puts "Total: #{totals[:orgs]} orgs, #{unique} unique contributors (#{all_logins.size} with login), #{totals[:commits]} commits, #{totals[:maintainer]} maintainer activities"
   end
 end
