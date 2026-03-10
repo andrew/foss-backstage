@@ -1,0 +1,33 @@
+org_aliases.csv
+  bffcdb68eaf4dbf3 1-19
+tasks/contributors.rake
+  bffcdb68eaf4dbf3 1-2,111-113,122-132,134-137
+tasks/activity.rake
+  bffcdb68eaf4dbf3 1-147
+tasks/external_repos.rake
+  bffcdb68eaf4dbf3 1-75
+tasks/owners.rake
+  bffcdb68eaf4dbf3 1-87
+tasks/shared.rb
+  bffcdb68eaf4dbf3 1-50
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.10",
+  "base_commit_sha": "b049d07ff4ba2b29f88f0f8228352f52018db407",
+  "prompts": {
+    "bffcdb68eaf4dbf3": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "233c39d9-9c25-422a-99af-3914d5f0861a",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Andrew Nesbitt <andrewnez@gmail.com>",
+      "messages": [],
+      "total_additions": 492,
+      "total_deletions": 142,
+      "accepted_lines": 398,
+      "overriden_lines": 0
+    }
+  }
+}
