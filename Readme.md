@@ -81,3 +81,15 @@ Could innersource commons members do more? And where should they focus their eff
 		8.2 perhaps look at the ‘health’ of these dependecies, using some metrics from dashboard
 
 	9. Look at funding for these packages, and funding from innersource commons members, how well does that line up?
+
+
+  ---
+
+
+  check for bots
+  check for extreme outlier maintainer accounts
+  categorize orgs by industry, size, etc
+  supply chain projects 
+  which isc orgs are publishing packages, and how widely used are they?
+  spot the consumption vs contribtion gap in the data, and identify the most critical packages that are widely used but receive no contribution from ISC members (also issues vs prs)
+  funding for critical packages, and how much ISC members are contributing to that funding
