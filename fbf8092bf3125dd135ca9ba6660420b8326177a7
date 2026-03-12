@@ -1,0 +1,27 @@
+tasks/busfactor.rake
+  bffcdb68eaf4dbf3 1-171
+tasks/db.rake
+  bffcdb68eaf4dbf3 76-77,274-275,278-279
+findings.md
+  bffcdb68eaf4dbf3 1,7,9,17,25,29,43,45,47,53,55,59,66-68,71,78,80,82,84,86,88,90,92-124,134
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.10",
+  "base_commit_sha": "fbf8092bf3125dd135ca9ba6660420b8326177a7",
+  "prompts": {
+    "bffcdb68eaf4dbf3": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "233c39d9-9c25-422a-99af-3914d5f0861a",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Andrew Nesbitt <andrewnez@gmail.com>",
+      "messages": [],
+      "total_additions": 265,
+      "total_deletions": 63,
+      "accepted_lines": 235,
+      "overriden_lines": 0
+    }
+  }
+}
