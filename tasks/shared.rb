@@ -8,6 +8,7 @@ COMMITS_API = "https://commits.ecosyste.ms/api/v1/"
 ISSUES_API = "https://issues.ecosyste.ms/api/v1/"
 USER_AGENT = "foss-backstage/1.0 (andrew@nesbitt.io)"
 REPOS_API = "https://repos.ecosyste.ms/api/v1/"
+DB_PATH = "data/foss_backstage.db"
 
 def ecosystems_client(base_url)
   Faraday.new(url: base_url) do |f|
