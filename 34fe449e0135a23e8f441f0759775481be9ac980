@@ -1,0 +1,29 @@
+tasks/db.rake
+  bffcdb68eaf4dbf3 1-238
+tasks/packages.rake
+  bffcdb68eaf4dbf3 1-156
+tasks/shared.rb
+  bffcdb68eaf4dbf3 11
+Gemfile
+  bffcdb68eaf4dbf3 8-9
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.10",
+  "base_commit_sha": "34fe449e0135a23e8f441f0759775481be9ac980",
+  "prompts": {
+    "bffcdb68eaf4dbf3": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "233c39d9-9c25-422a-99af-3914d5f0861a",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Andrew Nesbitt <andrewnez@gmail.com>",
+      "messages": [],
+      "total_additions": 509,
+      "total_deletions": 51,
+      "accepted_lines": 458,
+      "overriden_lines": 0
+    }
+  }
+}
