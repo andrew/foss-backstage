@@ -1,0 +1,23 @@
+tasks/dependencies.rake
+  bffcdb68eaf4dbf3 1-77
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.10",
+  "base_commit_sha": "2446c360866db233f9f5759cee9627a785da31bd",
+  "prompts": {
+    "bffcdb68eaf4dbf3": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "233c39d9-9c25-422a-99af-3914d5f0861a",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Andrew Nesbitt <andrewnez@gmail.com>",
+      "messages": [],
+      "total_additions": 97,
+      "total_deletions": 3,
+      "accepted_lines": 96,
+      "overriden_lines": 0
+    }
+  }
+}
