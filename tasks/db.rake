@@ -73,7 +73,8 @@ def create_tables(db)
       downloads INTEGER DEFAULT 0,
       dependent_packages_count INTEGER DEFAULT 0,
       repository_url TEXT,
-      funding_links TEXT
+      funding_links TEXT,
+      maintainer_count INTEGER DEFAULT 0
     );
 
     CREATE TABLE IF NOT EXISTS published_packages (
@@ -270,10 +271,12 @@ namespace :db do
         funding = [funding] if funding.is_a?(String)
         funding = funding.select { |l| (l.is_a?(String) && l.length > 0) || l.is_a?(Hash) }
         funding_str = funding.map { |l| l.is_a?(Hash) ? l["url"] : l }.compact.join(",")
-        db.execute("INSERT INTO packages VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+        maintainer_count = (top["maintainers"] || []).size
+        db.execute("INSERT INTO packages VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
           [ecosystem, package_name, top["ecosystem"], top["name"],
            top["downloads"].to_i, top["dependent_packages_count"].to_i,
-           top["repository_url"], funding_str.empty? ? nil : funding_str])
+           top["repository_url"], funding_str.empty? ? nil : funding_str,
+           maintainer_count])
       end
     end
 
