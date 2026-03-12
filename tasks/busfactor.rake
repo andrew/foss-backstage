@@ -114,7 +114,7 @@ namespace :busfactor do
       }
     end
 
-    with_data = results.select { |r| r[:has_commit_data] }
+    with_data = results.select { |r| r[:has_commit_data] && r[:total_commits] > 0 }
 
     puts "=== Bus factor analysis of shared dependencies ==="
     puts

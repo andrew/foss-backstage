@@ -2,6 +2,12 @@ Findings from analysing 108 InnerSource Commons member organisations' GitHub act
 
 Data sources: GitHub API (repos), ecosyste.ms commits/issues/repos/packages services (contributors, activity, dependencies, package metadata). Maintainers identified by MEMBER/OWNER/COLLABORATOR association on issues, filtering out third-party contributors.
 
+## Open source is growing
+
+GitHub's Innovation Graph (github.com/github/innovationgraph) tracks platform-wide growth quarterly from Q1 2020 to Q3 2025. Everything is up and to the right: developers went from 52 million to 190 million (3.6x), repositories from 140 million to 440 million (3.1x), git pushes from 98 million to 251 million per quarter (2.6x), and organisations from 3.5 million to 8.9 million (2.6x). Growth is steady quarter over quarter, with a small seasonal dip in Q3 pushes each year.
+
+More people and more organisations are building on open source every quarter. That makes the question of whether ISC members are contributing back more pressing, not less.
+
 ## The dataset
 
 108 ISC member organisations own 23,696 GitHub repos. 14,202 are active (non-fork, non-archived). 76,724 people have maintainer-level access across these orgs.
@@ -91,6 +97,16 @@ These maintainers have set up funding, ISC members depend on their work, but the
 
 Go has its own set of zombies: gopkg.in/yaml.v2 and v3 (23 and 20 orgs, 90k dependents each), github.com/golang/mock (21 orgs), github.com/json-iterator/go (20 orgs, 49k dependents). These packages have successors but migration hasn't happened.
 
+## Bus factor
+
+4,497 shared dependency repos (5+ ISC orgs) were checked against commits.ecosyste.ms for contributor data. The results are sobering.
+
+Many of the most widely used packages have a single person who can publish updates. supports-color (37 orgs, 1.6 billion downloads), has-flag (37 orgs, 1 billion downloads), chalk (36 orgs, 1.7 billion downloads), minimatch (36 orgs, 2 billion downloads), once (36 orgs, 407 million downloads) -- all have exactly one person with the publish bit. The pattern repeats across the top 30 most-depended-on packages.
+
+The "highest risk" packages combine three signals: low commit diversity (DDS), no commits in the past year, and wide ISC usage. has-flag (37 orgs, 1 billion downloads, 7 committers ever, dormant), safe-buffer (35 orgs, 937 million downloads, dormant), yallist (35 orgs, 879 million downloads, 3 committers, dormant), cross-spawn (35 orgs, 646 million downloads, dormant). imurmurhash-js is the extreme case: 34 orgs depend on it, 328 million downloads, and it has had exactly one committer in its entire history.
+
+The combination of single-publisher, low DDS, and no recent activity means that if these maintainers lose interest, burn out, or have their accounts compromised, dozens of ISC member organisations are exposed. The ISC collectively depends on these packages but contributes nothing back to them.
+
 ## Ecosystem gaps
 
 Contribution rates vary by language ecosystem. Packagist (PHP) has the worst gap at 84.6% of dependencies receiving no ISC contributions, followed by Bower (74.3%), Hex (Elixir, 73.5%), CocoaPods (71.7%). Go is at 65.1%, npm at 58.1%. GitHub Actions has the smallest gap at 49.4%, and Docker and Maven effectively show 0% gap (though Maven has no repo URL mappings).
@@ -135,6 +151,4 @@ Microsoft is roughly half the dataset by maintainer count and 70% of contributio
 
 ## Still to come
 
-- Q1 (activity over time) needs time-series data
 - Q4 (staff activity after joining ISC) needs membership timeline data
-- Bus factor analysis on critical shared dependencies
