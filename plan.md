@@ -54,8 +54,25 @@ repos.ecosyste.ms has scorecard data. We could pull that for the top shared depe
 
 ## Next steps
 
-1. Write `rake db:build` to load flat files into SQLite
-2. Write query tasks against the database for Q3, Q5, Q6, Q7, Q8
-3. Collect package/usage data from repos.ecosyste.ms for Q2
-4. Collect funding data for Q9
+1. ~~Write `rake db:build` to load flat files into SQLite~~
+2. ~~Write query tasks against the database for Q3, Q5, Q6, Q7, Q8~~
+3. ~~Collect package/usage data from packages.ecosyste.ms for Q2~~
+4. ~~Collect funding data from package metadata funding_links~~
 5. Figure out timeline approach for Q1
+6. Rebuild db and refresh findings once all package data finishes downloading
+
+## Further ideas
+
+- **Cross-ISC contribution:** Do ISC members contribute to each other's repos? We have the data to check this already. Could show a network graph of which orgs contribute to which other ISC orgs.
+- **License analysis:** We have license data on external_repos. What licenses do ISC members depend on vs what licenses they publish under? Any copyleft dependencies in permissive-licensed projects?
+- **Abandoned dependencies:** Cross-reference shared dependencies with their repo's last commit date or archived status. How many orgs depend on something that hasn't been touched in years?
+- **Bus factor on critical packages:** For the top shared deps, how many active maintainers does the upstream repo have? Single-maintainer packages that 30 orgs depend on are a supply chain risk.
+- **Scorecard data:** repos.ecosyste.ms has OpenSSF Scorecard scores. Pull those for the top shared dependencies to assess security posture.
+- **Org size vs contribution rate:** Categorize orgs by repo count or maintainer count, then see if larger orgs contribute more or less per capita. IBM has 40% external participation with 2,600 maintainers, SAP has 4% with 8,000. Is that a pattern?
+- **Language ecosystem gaps:** The dependency data is heavily npm-skewed. Are Go, Python, or Ruby dependencies better or worse served by ISC contributions? Different ecosystems may have different contribution cultures.
+- **Funding vs contribution:** For packages that have funding links, are they more or less likely to also receive code contributions from ISC members? Does money substitute for code or do they correlate?
+- **Industry clustering:** Tag the 108 orgs by industry (finance, tech, retail, etc.) and see if certain industries contribute more. Do banks contribute differently than tech companies?
+- **Time-series from ecosyste.ms:** The issues service has `past_year_` fields. Could plot year-over-year trends for at least recent history. The timeline service at timeline.ecosyste.ms may have more granular data.
+- **Maintainer overlap:** Which people are maintainers at multiple ISC orgs? Could indicate job-hopping patterns or consultants. The multi-org maintainers might be the most valuable contributors.
+- **Docker base image dependencies:** Docker images (node, python, alpine, ubuntu) show up as dependencies used by 10-15 orgs. Worth calling out separately since they're a different kind of supply chain from library packages.
+- **ISC members sponsoring each other:** If we pull GitHub Sponsors data for ISC org accounts, are any of them sponsoring the maintainers they depend on?

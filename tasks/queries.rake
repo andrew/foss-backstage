@@ -386,4 +386,612 @@ namespace :queries do
 
     db.close
   end
+
+  desc "Export consumption vs contribution CSV (EXCLUDE=Microsoft)"
+  task :csv do
+    db = open_query_db
+
+    deps = db.execute(<<-SQL)
+      SELECT d.ecosystem, d.package_name,
+             COUNT(DISTINCT r.org) as depending_orgs,
+             p.downloads, p.dependent_packages_count, p.repository_url, p.funding_links
+      FROM dependencies d
+      JOIN repos r ON r.full_name = d.repo
+      JOIN packages p ON p.ecosystem = d.ecosystem AND p.package_name = d.package_name
+      WHERE p.repository_url IS NOT NULL AND p.repository_url <> ''
+        AND d.package_name NOT LIKE '.%'
+      GROUP BY d.ecosystem, d.package_name
+      HAVING depending_orgs >= 5
+      ORDER BY depending_orgs DESC, p.downloads DESC
+    SQL
+
+    seen_repos = Set.new
+    results = []
+
+    deps.each do |eco, name, org_count, downloads, dependents, repo_url, funding_links|
+      repo_name = repo_url.sub(%r{https?://github\.com/}, "").sub(/\.git$/, "")
+      next if seen_repos.include?(repo_name)
+      seen_repos << repo_name
+
+      activity = db.execute(
+        "SELECT source, SUM(count), COUNT(DISTINCT login) FROM external_activity WHERE repo = ? GROUP BY source",
+        [repo_name]
+      )
+
+      commits = 0; issues = 0; prs = 0; maintaining = 0
+      commit_people = 0; issue_people = 0; pr_people = 0; maint_people = 0
+
+      activity.each do |source, total, people|
+        case source
+        when "commits" then commits = total; commit_people = people
+        when "issues" then issues = total; issue_people = people
+        when "pull_requests" then prs = total; pr_people = people
+        when "maintaining" then maintaining = total; maint_people = people
+        end
+      end
+
+      has_github_sponsors = funding_links&.include?("github.com/sponsors") ? true : false
+      has_opencollective = funding_links&.include?("opencollective.com") ? true : false
+      has_tidelift = funding_links&.include?("tidelift.com") ? true : false
+      has_any_funding = funding_links && funding_links.length > 0
+
+      results << [
+        "#{eco}/#{name}", repo_name, org_count, downloads, dependents,
+        commits, commit_people, issues, issue_people, prs, pr_people, maintaining, maint_people,
+        commits + issues + prs + maintaining,
+        has_any_funding, has_github_sponsors, has_opencollective, has_tidelift,
+        funding_links
+      ]
+    end
+
+    output = "data/consumption_vs_contribution.csv"
+    CSV.open(output, "w") do |csv|
+      csv << %w[package repo depending_orgs downloads dependents commits commit_people issues issue_people prs pr_people maintaining maint_people total_contributions has_funding has_github_sponsors has_opencollective has_tidelift funding_links]
+      results.each { |r| csv << r }
+    end
+
+    with_funding = results.count { |r| r[14] }
+    zero_contrib = results.select { |r| r[13] == 0 }
+    zero_with_funding = zero_contrib.count { |r| r[14] }
+
+    puts "#{results.size} unique dependency repos written to #{output}"
+    puts "#{with_funding}/#{results.size} have funding links (#{(with_funding.to_f / results.size * 100).round(1)}%)"
+    puts "#{zero_contrib.size} receive zero ISC contributions"
+    puts "#{zero_with_funding}/#{zero_contrib.size} of those have funding links (#{(zero_with_funding.to_f / zero_contrib.size * 100).round(1)}%)"
+
+    db.close
+  end
+
+  desc "Cross-ISC contributions: do ISC members contribute to each other's repos?"
+  task :cross_isc do
+    db = open_query_db
+
+    puts "=== Cross-ISC contributions ==="
+    puts
+
+    # Build set of all ISC org logins
+    isc_orgs = Set.new
+    db.execute("SELECT login FROM orgs").each { |row| isc_orgs << row[0].downcase }
+
+    # Find external activity where the repo owner is another ISC org
+    cross = db.execute(<<-SQL)
+      SELECT ea.login, ea.repo, ea.source, ea.count, m.org as home_org
+      FROM external_activity ea
+      JOIN maintainers m ON m.login = ea.login
+    SQL
+
+    matches = []
+    cross.each do |login, repo, source, count, home_org|
+      target_owner = repo.split("/").first.downcase
+      next unless isc_orgs.include?(target_owner)
+      next if target_owner == home_org.downcase
+      matches << [home_org, login, target_owner, repo, source, count]
+    end
+
+    people = matches.map { |r| r[1] }.uniq
+    source_orgs = matches.map { |r| r[0] }.uniq
+    target_orgs = matches.map { |r| r[2] }.uniq
+    target_repos = matches.map { |r| r[3] }.uniq
+    total = matches.sum { |r| r[5] }
+
+    puts "#{people.size} people from #{source_orgs.size} ISC orgs contribute to #{target_repos.size} repos at #{target_orgs.size} other ISC orgs"
+    puts "#{total} total cross-ISC contributions"
+    puts
+
+    puts "Top 20 source orgs (contributing TO other ISC orgs):"
+    by_source = matches.group_by { |r| r[0] }
+    by_source.sort_by { |_, rows| -rows.sum { |r| r[5] } }.first(20).each do |org, rows|
+      company = db.get_first_value("SELECT company FROM orgs WHERE login = ?", [org])
+      targets = rows.map { |r| r[2] }.uniq
+      puts "  #{company} (#{org}): #{rows.sum { |r| r[5] }} contributions to #{targets.size} ISC orgs by #{rows.map { |r| r[1] }.uniq.size} people"
+    end
+
+    puts
+    puts "Top 20 target orgs (receiving FROM other ISC orgs):"
+    by_target = matches.group_by { |r| r[2] }
+    by_target.sort_by { |_, rows| -rows.sum { |r| r[5] } }.first(20).each do |org, rows|
+      company = db.get_first_value("SELECT company FROM orgs WHERE login = ?", [org])
+      sources = rows.map { |r| r[0] }.uniq
+      puts "  #{company} (#{org}): #{rows.sum { |r| r[5] }} contributions from #{sources.size} ISC orgs by #{rows.map { |r| r[1] }.uniq.size} people"
+    end
+
+    puts
+    puts "Top 20 org-to-org flows:"
+    by_flow = matches.group_by { |r| [r[0], r[2]] }
+    by_flow.sort_by { |_, rows| -rows.sum { |r| r[5] } }.first(20).each do |(src, tgt), rows|
+      src_company = db.get_first_value("SELECT company FROM orgs WHERE login = ?", [src])
+      tgt_company = db.get_first_value("SELECT company FROM orgs WHERE login = ?", [tgt])
+      puts "  #{src_company} -> #{tgt_company}: #{rows.sum { |r| r[5] }} contributions by #{rows.map { |r| r[1] }.uniq.size} people"
+    end
+
+    db.close
+  end
+
+  desc "License analysis: what licenses do ISC orgs depend on?"
+  task :licenses do
+    db = open_query_db
+
+    puts "=== License analysis ==="
+    puts
+
+    # Licenses of dependency repos
+    puts "Licenses of external repos ISC maintainers contribute to:"
+    db.execute(<<-SQL).each do |row|
+      SELECT COALESCE(er.license, 'unknown') as license, COUNT(DISTINCT er.full_name) as repos
+      FROM external_repos er
+      GROUP BY license
+      ORDER BY repos DESC
+      LIMIT 30
+    SQL
+      puts "  #{row[0]}: #{row[1]} repos"
+    end
+
+    puts
+    puts "Licenses of shared dependencies (5+ ISC orgs depend on):"
+    db.execute(<<-SQL).each do |row|
+      SELECT COALESCE(er.license, 'unknown') as license,
+             COUNT(DISTINCT p.package_name) as packages
+      FROM dependencies d
+      JOIN repos r ON r.full_name = d.repo
+      JOIN packages p ON p.ecosystem = d.ecosystem AND p.package_name = d.package_name
+      JOIN external_repos er ON er.full_name = REPLACE(REPLACE(p.repository_url, 'https://github.com/', ''), '.git', '')
+      WHERE p.repository_url IS NOT NULL AND p.repository_url <> ''
+      GROUP BY license
+      ORDER BY packages DESC
+      LIMIT 30
+    SQL
+      puts "  #{row[0]}: #{row[1]} packages"
+    end
+
+    puts
+    puts "Copyleft dependencies (GPL/LGPL/AGPL/MPL) used by ISC orgs:"
+    db.execute(<<-SQL).each do |row|
+      SELECT er.license, d.ecosystem, d.package_name, COUNT(DISTINCT r.org) as org_count,
+             p.repository_url
+      FROM dependencies d
+      JOIN repos r ON r.full_name = d.repo
+      JOIN packages p ON p.ecosystem = d.ecosystem AND p.package_name = d.package_name
+      JOIN external_repos er ON er.full_name = REPLACE(REPLACE(p.repository_url, 'https://github.com/', ''), '.git', '')
+      WHERE er.license LIKE '%GPL%' OR er.license LIKE '%MPL%' OR er.license LIKE '%AGPL%'
+        OR er.license LIKE '%Copyleft%' OR er.license LIKE '%EUPL%'
+      GROUP BY d.ecosystem, d.package_name
+      HAVING org_count >= 3
+      ORDER BY org_count DESC
+      LIMIT 30
+    SQL
+      puts "  #{row[1]}/#{row[2]} (#{row[0]}): #{row[3]} orgs - #{row[4]}"
+    end
+
+    db.close
+  end
+
+  desc "Abandoned dependencies: archived or stale dependency repos"
+  task :abandoned do
+    db = open_query_db
+
+    puts "=== Abandoned dependencies ==="
+    puts
+
+    puts "Archived dependency repos still depended on by ISC orgs:"
+    db.execute(<<-SQL).each do |row|
+      SELECT d.ecosystem, d.package_name, COUNT(DISTINCT r.org) as org_count,
+             p.downloads, p.dependent_packages_count, p.repository_url
+      FROM dependencies d
+      JOIN repos r ON r.full_name = d.repo
+      JOIN packages p ON p.ecosystem = d.ecosystem AND p.package_name = d.package_name
+      JOIN external_repos er ON er.full_name = REPLACE(REPLACE(p.repository_url, 'https://github.com/', ''), '.git', '')
+      WHERE er.archived = 1
+        AND p.repository_url IS NOT NULL AND p.repository_url <> ''
+      GROUP BY d.ecosystem, d.package_name
+      HAVING org_count >= 3
+      ORDER BY org_count DESC
+    SQL
+      puts "  #{row[0]}/#{row[1]}: #{row[2]} orgs, #{row[3]} downloads, #{row[4]} dependents - #{row[5]}"
+    end
+
+    puts
+    total_archived = db.get_first_value(<<-SQL)
+      SELECT COUNT(DISTINCT d.ecosystem || '/' || d.package_name)
+      FROM dependencies d
+      JOIN repos r ON r.full_name = d.repo
+      JOIN packages p ON p.ecosystem = d.ecosystem AND p.package_name = d.package_name
+      JOIN external_repos er ON er.full_name = REPLACE(REPLACE(p.repository_url, 'https://github.com/', ''), '.git', '')
+      WHERE er.archived = 1
+        AND p.repository_url IS NOT NULL AND p.repository_url <> ''
+    SQL
+    puts "#{total_archived} total archived dependency packages in use"
+
+    db.close
+  end
+
+  desc "Org size vs contribution rate"
+  task :org_size do
+    db = open_query_db
+
+    puts "=== Org size vs external contribution rate ==="
+    puts
+
+    puts "%-30s %8s %8s %8s %10s %8s" % ["Company", "Maint.", "Active", "Rate", "Contribs", "Per cap."]
+    puts "-" * 85
+
+    db.execute(<<-SQL).each do |row|
+      SELECT o.company, o.login,
+             COUNT(DISTINCT m.login) as total_maintainers,
+             COUNT(DISTINCT ea.login) as active_externally,
+             COALESCE(SUM(ea.count), 0) as total_contributions
+      FROM orgs o
+      JOIN maintainers m ON m.org = o.login
+      LEFT JOIN external_activity ea ON ea.login = m.login
+      GROUP BY o.login
+      HAVING total_maintainers >= 10
+      ORDER BY total_maintainers DESC
+    SQL
+      company, login, total, active, contribs = row
+      rate = (active.to_f / total * 100).round(1)
+      per_capita = total > 0 ? (contribs.to_f / total).round(1) : 0
+      puts "%-30s %8d %8d %7.1f%% %10d %8.1f" % [company || login, total, active, rate, contribs, per_capita]
+    end
+
+    db.close
+  end
+
+  desc "Language ecosystem gaps: contribution rates by dependency ecosystem"
+  task :ecosystem_gaps do
+    db = open_query_db
+
+    puts "=== Contribution rates by dependency ecosystem ==="
+    puts
+
+    # Get all dependency ecosystems with their package counts and org counts
+    ecosystems = db.execute(<<-SQL)
+      SELECT d.ecosystem,
+             COUNT(DISTINCT d.package_name) as packages,
+             COUNT(DISTINCT r.org) as orgs,
+             COUNT(DISTINCT d.repo) as repos
+      FROM dependencies d
+      JOIN repos r ON r.full_name = d.repo
+      WHERE d.package_name NOT LIKE '.%'
+      GROUP BY d.ecosystem
+      HAVING packages >= 10
+      ORDER BY packages DESC
+    SQL
+
+    puts "%-20s %8s %6s %8s %10s %10s %8s" % ["Ecosystem", "Packages", "Orgs", "With repo", "Contrib'd", "Gap", "Gap %"]
+    puts "-" * 85
+
+    ecosystems.each do |eco, pkg_count, org_count, repo_count|
+      # How many dependency packages in this ecosystem have known repos and contributions?
+      with_repo = db.get_first_value(<<-SQL, [eco])
+        SELECT COUNT(DISTINCT d.package_name)
+        FROM dependencies d
+        JOIN repos r ON r.full_name = d.repo
+        JOIN packages p ON p.ecosystem = d.ecosystem AND p.package_name = d.package_name
+        WHERE d.ecosystem = ?
+          AND p.repository_url IS NOT NULL AND p.repository_url <> ''
+          AND d.package_name NOT LIKE '.%'
+        GROUP BY d.ecosystem
+      SQL
+      with_repo ||= 0
+
+      contributed = db.get_first_value(<<-SQL, [eco])
+        SELECT COUNT(DISTINCT d.package_name)
+        FROM dependencies d
+        JOIN repos r ON r.full_name = d.repo
+        JOIN packages p ON p.ecosystem = d.ecosystem AND p.package_name = d.package_name
+        JOIN external_activity ea ON ea.repo = REPLACE(REPLACE(p.repository_url, 'https://github.com/', ''), '.git', '')
+        WHERE d.ecosystem = ?
+          AND p.repository_url IS NOT NULL AND p.repository_url <> ''
+          AND d.package_name NOT LIKE '.%'
+      SQL
+      contributed ||= 0
+
+      gap = with_repo - contributed
+      gap_pct = with_repo > 0 ? (gap.to_f / with_repo * 100).round(1) : 0
+
+      puts "%-20s %8d %6d %8d %10d %10d %7.1f%%" % [eco, pkg_count, org_count, with_repo, contributed, gap, gap_pct]
+    end
+
+    db.close
+  end
+
+  desc "Funding vs contribution correlation"
+  task :funding_vs_contribution do
+    db = open_query_db
+
+    puts "=== Funding vs contribution correlation ==="
+    puts
+
+    # All dependency packages with repos, split by funding status
+    deps = db.execute(<<-SQL)
+      SELECT p.ecosystem, p.package_name, p.repository_url, p.funding_links,
+             p.downloads, p.dependent_packages_count
+      FROM packages p
+      WHERE p.repository_url IS NOT NULL AND p.repository_url <> ''
+    SQL
+
+    funded_contrib = 0; funded_no_contrib = 0
+    unfunded_contrib = 0; unfunded_no_contrib = 0
+    funded_total_activity = 0; unfunded_total_activity = 0
+
+    deps.each do |eco, name, repo_url, funding, downloads, dependents|
+      repo_name = repo_url.sub(%r{https?://github\.com/}, "").sub(/\.git$/, "")
+      activity = db.get_first_value("SELECT SUM(count) FROM external_activity WHERE repo = ?", [repo_name]).to_i
+      has_funding = funding && funding.length > 0
+
+      if has_funding
+        if activity > 0
+          funded_contrib += 1
+          funded_total_activity += activity
+        else
+          funded_no_contrib += 1
+        end
+      else
+        if activity > 0
+          unfunded_contrib += 1
+          unfunded_total_activity += activity
+        else
+          unfunded_no_contrib += 1
+        end
+      end
+    end
+
+    funded_total = funded_contrib + funded_no_contrib
+    unfunded_total = unfunded_contrib + unfunded_no_contrib
+
+    puts "Packages WITH funding links:"
+    puts "  #{funded_total} total"
+    puts "  #{funded_contrib} receive ISC contributions (#{(funded_contrib.to_f / funded_total * 100).round(1)}%)"
+    puts "  #{funded_no_contrib} receive none (#{(funded_no_contrib.to_f / funded_total * 100).round(1)}%)"
+    puts "  #{funded_total_activity} total contributions"
+    puts "  #{funded_total > 0 ? (funded_total_activity.to_f / funded_total).round(1) : 0} avg contributions per package"
+    puts
+
+    puts "Packages WITHOUT funding links:"
+    puts "  #{unfunded_total} total"
+    puts "  #{unfunded_contrib} receive ISC contributions (#{(unfunded_contrib.to_f / unfunded_total * 100).round(1)}%)"
+    puts "  #{unfunded_no_contrib} receive none (#{(unfunded_no_contrib.to_f / unfunded_total * 100).round(1)}%)"
+    puts "  #{unfunded_total_activity} total contributions"
+    puts "  #{unfunded_total > 0 ? (unfunded_total_activity.to_f / unfunded_total).round(1) : 0} avg contributions per package"
+    puts
+
+    puts "Funding type breakdown across all dependency packages:"
+    funding_types = Hash.new(0)
+    deps.each do |_, _, _, funding, _, _|
+      next unless funding && funding.length > 0
+      funding.split(",").each do |link|
+        case link
+        when /github\.com\/sponsors/ then funding_types["GitHub Sponsors"] += 1
+        when /opencollective\.com/ then funding_types["OpenCollective"] += 1
+        when /tidelift\.com/ then funding_types["Tidelift"] += 1
+        when /patreon\.com/ then funding_types["Patreon"] += 1
+        when /buymeacoffee/ then funding_types["Buy Me a Coffee"] += 1
+        when /paypal/ then funding_types["PayPal"] += 1
+        else funding_types["Other"] += 1
+        end
+      end
+    end
+    funding_types.sort_by { |_, c| -c }.each do |type, count|
+      puts "  #{type}: #{count}"
+    end
+
+    db.close
+  end
+
+  desc "Maintainer overlap: people who maintain at multiple ISC orgs"
+  task :maintainer_overlap do
+    db = open_query_db
+
+    puts "=== Maintainer overlap across ISC orgs ==="
+    puts
+
+    multi = db.execute(<<-SQL)
+      SELECT m.login, COUNT(DISTINCT m.org) as org_count,
+             GROUP_CONCAT(DISTINCT m.org) as orgs,
+             SUM(m.commits) as total_commits
+      FROM maintainers m
+      GROUP BY m.login
+      HAVING org_count > 1
+      ORDER BY org_count DESC, total_commits DESC
+    SQL
+
+    puts "#{multi.size} maintainers appear in multiple ISC orgs"
+    puts
+
+    by_count = multi.group_by { |r| r[1] }
+    by_count.sort_by { |k, _| -k }.each do |count, rows|
+      puts "#{count} orgs: #{rows.size} maintainers"
+    end
+
+    puts
+    puts "Top 30 multi-org maintainers:"
+    multi.first(30).each do |login, org_count, orgs, commits|
+      # Check external activity too
+      ext = db.get_first_value("SELECT SUM(count) FROM external_activity WHERE login = ?", [login]).to_i
+      org_list = orgs.split(",")
+      companies = org_list.map { |o| db.get_first_value("SELECT company FROM orgs WHERE login = ?", [o]) }.compact.uniq
+      puts "  #{login}: #{org_count} orgs (#{companies.join(', ')}), #{commits} commits, #{ext} external contributions"
+    end
+
+    # Check if multi-org maintainers are same-company (org aliases) or truly cross-company
+    puts
+    puts "Cross-company vs same-company overlap:"
+    cross_company = 0
+    same_company = 0
+    multi.each do |login, org_count, orgs, _|
+      org_list = orgs.split(",")
+      companies = org_list.map { |o| db.get_first_value("SELECT company FROM orgs WHERE login = ?", [o]) }.compact.uniq
+      if companies.size > 1
+        cross_company += 1
+      else
+        same_company += 1
+      end
+    end
+    puts "  Same company (org aliases): #{same_company}"
+    puts "  Cross-company: #{cross_company}"
+
+    db.close
+  end
+
+  desc "Docker base image dependencies shared across ISC orgs"
+  task :docker do
+    db = open_query_db
+
+    puts "=== Docker/container base image dependencies ==="
+    puts
+
+    docker = db.execute(<<-SQL)
+      SELECT d.package_name, COUNT(DISTINCT r.org) as org_count,
+             COUNT(DISTINCT d.repo) as repo_count,
+             p.downloads, p.dependent_packages_count, p.repository_url
+      FROM dependencies d
+      JOIN repos r ON r.full_name = d.repo
+      LEFT JOIN packages p ON p.ecosystem = d.ecosystem AND p.package_name = d.package_name
+      WHERE d.ecosystem = 'docker'
+      GROUP BY d.package_name
+      ORDER BY org_count DESC, repo_count DESC
+    SQL
+
+    if docker.empty?
+      puts "No docker dependencies found in the dataset."
+    else
+      puts "#{docker.size} distinct Docker base images used"
+      puts
+
+      puts "Docker images by ISC org usage:"
+      docker.each do |name, org_count, repo_count, downloads, dependents, repo_url|
+        extra = []
+        extra << "#{downloads} pulls" if downloads && downloads > 0
+        extra << "#{dependents} dependents" if dependents && dependents > 0
+        extra << repo_url if repo_url
+        suffix = extra.empty? ? "" : " - #{extra.join(', ')}"
+        puts "  #{name}: #{org_count} orgs, #{repo_count} repos#{suffix}"
+      end
+    end
+
+    db.close
+  end
+
+  desc "Industry breakdown: software vs non-software, by industry and size (EXCLUDE=Microsoft)"
+  task :industry do
+    db = open_query_db
+
+    puts "=== Industry breakdown ==="
+    puts
+
+    # Software vs non-software summary
+    puts "Software vs non-software:"
+    puts
+    puts "%-15s %5s %10s %8s %8s %10s %8s" % ["Type", "Orgs", "Maint.", "Active", "Rate", "Contribs", "Per cap."]
+    puts "-" * 75
+
+    db.execute(<<-SQL).each do |row|
+      SELECT o.type,
+             COUNT(DISTINCT o.login) as orgs,
+             COUNT(DISTINCT m.login) as maintainers,
+             COUNT(DISTINCT ea.login) as active,
+             COALESCE(SUM(ea.count), 0) as contributions
+      FROM orgs o
+      JOIN maintainers m ON m.org = o.login
+      LEFT JOIN external_activity ea ON ea.login = m.login
+      GROUP BY o.type
+      ORDER BY maintainers DESC
+    SQL
+      type, orgs, maint, active, contribs = row
+      rate = (active.to_f / maint * 100).round(1)
+      per_cap = (contribs.to_f / maint).round(1)
+      puts "%-15s %5d %10d %8d %7.1f%% %10d %8.1f" % [type, orgs, maint, active, rate, contribs, per_cap]
+    end
+
+    puts
+    puts "By industry:"
+    puts
+    puts "%-20s %5s %10s %8s %8s %10s %8s" % ["Industry", "Orgs", "Maint.", "Active", "Rate", "Contribs", "Per cap."]
+    puts "-" * 80
+
+    db.execute(<<-SQL).each do |row|
+      SELECT o.industry,
+             COUNT(DISTINCT o.login) as orgs,
+             COUNT(DISTINCT m.login) as maintainers,
+             COUNT(DISTINCT ea.login) as active,
+             COALESCE(SUM(ea.count), 0) as contributions
+      FROM orgs o
+      JOIN maintainers m ON m.org = o.login
+      LEFT JOIN external_activity ea ON ea.login = m.login
+      GROUP BY o.industry
+      ORDER BY maintainers DESC
+    SQL
+      industry, orgs, maint, active, contribs = row
+      rate = (active.to_f / maint * 100).round(1)
+      per_cap = (contribs.to_f / maint).round(1)
+      puts "%-20s %5d %10d %8d %7.1f%% %10d %8.1f" % [industry, orgs, maint, active, rate, contribs, per_cap]
+    end
+
+    puts
+    puts "By size:"
+    puts
+    puts "%-10s %5s %10s %8s %8s %10s %8s" % ["Size", "Orgs", "Maint.", "Active", "Rate", "Contribs", "Per cap."]
+    puts "-" * 65
+
+    sizes = ["huge", "large", "medium", "small"]
+    sizes.each do |size|
+      row = db.get_first_row(<<-SQL, [size])
+        SELECT COUNT(DISTINCT o.login),
+               COUNT(DISTINCT m.login),
+               COUNT(DISTINCT ea.login),
+               COALESCE(SUM(ea.count), 0)
+        FROM orgs o
+        JOIN maintainers m ON m.org = o.login
+        LEFT JOIN external_activity ea ON ea.login = m.login
+        WHERE o.size = ?
+      SQL
+      orgs, maint, active, contribs = row
+      rate = maint > 0 ? (active.to_f / maint * 100).round(1) : 0
+      per_cap = maint > 0 ? (contribs.to_f / maint).round(1) : 0
+      puts "%-10s %5d %10d %8d %7.1f%% %10d %8.1f" % [size, orgs, maint, active, rate, contribs, per_cap]
+    end
+
+    # Publishing by type
+    puts
+    puts "Package publishing by type:"
+    puts
+    puts "%-15s %8s %8s %8s %12s" % ["Type", "Repos", "Publish", "Rate", "Downloads"]
+    puts "-" * 60
+
+    db.execute(<<-SQL).each do |row|
+      SELECT o.type,
+             COUNT(DISTINCT r.full_name) as repos,
+             COUNT(DISTINCT pp.repo) as publishing,
+             SUM(pp.downloads) as downloads
+      FROM orgs o
+      JOIN repos r ON r.org = o.login AND r.fork = 0 AND r.archived = 0
+      LEFT JOIN published_packages pp ON pp.repo = r.full_name
+      GROUP BY o.type
+    SQL
+      type, repos, publishing, downloads = row
+      rate = (publishing.to_f / repos * 100).round(1)
+      puts "%-15s %8d %8d %7.1f%% %12d" % [type, repos, publishing, rate, downloads.to_i]
+    end
+
+    db.close
+  end
 end

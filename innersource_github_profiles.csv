@@ -1,109 +1,109 @@
-Organisation,GitHub Profile
-3M,https://github.com/3mcloud
-Ahold Delhaize,https://github.com/RoyalAholdDelhaize
-Adobe,https://github.com/adobe
-Avalia,https://github.com/AvaliaSystems
-Microsoft,https://github.com/microsoft
-Alliander,https://github.com/alliander-opensource
-American Airlines,https://github.com/AmericanAirlines
-ASOS,https://github.com/asos
-Autodesk,https://github.com/autodesk
-AXA,https://github.com/axa-group
-Baidu,https://github.com/baidu
-BBC,https://github.com/bbc
-BBVA,https://github.com/BBVA
-Bitergia,https://github.com/bitergia
-Bloomberg,https://github.com/bloomberg
-Bosch,https://github.com/boschresearch
-BuzzFeed,https://github.com/buzzfeed
-Capital One,https://github.com/capitalone
-CA Technologies,https://github.com/catechnologies
-Capillary Technologies ,https://github.com/Capillary
-Comcast,https://github.com/Comcast
-Commonwealth Bank Australia,https://github.com/commbankoss
-Continental,https://github.com/continental
-Daimler,https://github.com/daimlertruck
-Decathlon,https://github.com/decathlon
-Deliveroo,https://github.com/deliveroo
-Deutsche Bank,https://github.com/deutschebank
-DiDi,https://github.com/didi
-Disney,https://github.com/disney
-Dow Jones,https://github.com/dowjones
-DXC Technology,https://github.com/dxc-technology
-Elbit Systems,https://github.com/ElbitSystems
-ENGIE Digital,https://github.com/engie-group
-Ericsson,https://github.com/ericsson
-Etsy,https://github.com/etsy
-Europace,https://github.com/europace
-Fannie Mae,https://github.com/FannieMaeOpenSource
-Fidelity Investments,https://github.com/fidelity
-Ford,https://github.com/ford
-GitHub,https://github.com/github
-GitLab,https://github.com/gitlabhq
-Globant,https://github.com/globant
-HERE Global B.V,https://github.com/heremaps
-Huawei,https://github.com/huawei
-IBM,https://github.com/ibm
-Indeed,https://github.com/indeedeng
-ING Bank,https://github.com/ing-bank
-Intuit,https://github.com/intuit
-Leroy Merlin,https://github.com/leroymerlin
-Mercari,https://github.com/mercari
-Mercedes-Benz,https://github.com/mercedes-benz
-Morgan Stanley,https://github.com/morganstanley
-NASA,https://github.com/nasa
-Nationwide,https://github.com/nationwide
-Nike,https://github.com/nike-inc
-Nokia,https://github.com/nokia
-Nuance,https://github.com/nuance-communications
-Nubank,https://github.com/nubank
-Otto Group,https://github.com/otto-de
-PayPal,https://github.com/paypal
-Philips,https://github.com/philips-software
-Plaid,https://github.com/plaid
-Royal Bank of Canada,https://github.com/rbc
-SAP,https://github.com/sap
-Seagate,https://github.com/seagate
-Shell,https://github.com/sede-open
-Shutterstock,https://github.com/shutterstock
-Siemens,https://github.com/siemens
-Skyscanner,https://github.com/skyscanner
-Societe Generale,https://github.com/societe-generale
-Sourcegraph,https://github.com/sourcegraph
-Spotify,https://github.com/spotify
-Stack Overflow,https://github.com/stackexchange
-Stripe,https://github.com/stripe
-Taxfix,https://github.com/taxfix
-Tencent,https://github.com/tencent
-Thales,https://github.com/thalesgroup
-Tesco,https://github.com/tesco
-Toshiba,https://github.com/toshiba
-Trend Micro,https://github.com/trendmicro
-Trustpilot,https://github.com/trustpilot
-Twilio,https://github.com/twilio
-US Bank,https://github.com/usbank
-VMware,https://github.com/vmware
-Walmart,https://github.com/walmart
-Wayfair,https://github.com/wayfair
-Wiley,https://github.com/wiley
-Wipro,https://github.com/wipro
-Zalando,https://github.com/zalando
-Zendesk,https://github.com/zendesk
-Adeo Group,https://github.com/adeo
-Boston Consulting Group Gamma,https://github.com/BCG-X-Official
-CH Robinson,https://github.com/ch-robinson
-Deloitte US,https://github.com/deloitte
-Deloitte Digital UK,https://github.com/deloittedigitaluk
-Entelgy,https://github.com/InnotecSystem
-EXFO,https://github.com/EXFO
-Harvard Business Review,https://github.com/HBRGTech
-IAG,https://github.com/iagcl
-KPMG,https://github.com/KPMG-UK
-Lloyds Bank,https://github.com/lloyds-banking-group
-NAVEX Global,https://github.com/tnwinc
-Panasonic Connect,https://github.com/PanasonicConnect
-Publicis Sapient,https://github.com/publicissapient
-The Hartford,https://github.com/thehartford
-Tray.io,https://github.com/trayio
-Viacom,https://github.com/ViacomInc
-WellSky,https://github.com/mediwareinc
+Organisation,GitHub Profile,type,industry,size
+3M,https://github.com/3mcloud,non-software,manufacturing,huge
+Ahold Delhaize,https://github.com/RoyalAholdDelhaize,non-software,retail,huge
+Adobe,https://github.com/adobe,software,software,large
+Avalia,https://github.com/AvaliaSystems,software,consulting,small
+Microsoft,https://github.com/microsoft,software,software,huge
+Alliander,https://github.com/alliander-opensource,non-software,energy,medium
+American Airlines,https://github.com/AmericanAirlines,non-software,transport,huge
+ASOS,https://github.com/asos,non-software,retail,medium
+Autodesk,https://github.com/autodesk,software,software,large
+AXA,https://github.com/axa-group,non-software,insurance,huge
+Baidu,https://github.com/baidu,software,tech,large
+BBC,https://github.com/bbc,non-software,media,large
+BBVA,https://github.com/BBVA,non-software,banking,huge
+Bitergia,https://github.com/bitergia,software,software,small
+Bloomberg,https://github.com/bloomberg,non-software,financial services,large
+Bosch,https://github.com/boschresearch,non-software,manufacturing,huge
+BuzzFeed,https://github.com/buzzfeed,non-software,media,small
+Capital One,https://github.com/capitalone,non-software,banking,large
+CA Technologies,https://github.com/catechnologies,software,software,large
+Capillary Technologies ,https://github.com/Capillary,software,software,medium
+Comcast,https://github.com/Comcast,non-software,telecom,huge
+Commonwealth Bank Australia,https://github.com/commbankoss,non-software,banking,large
+Continental,https://github.com/continental,non-software,automotive,huge
+Daimler,https://github.com/daimlertruck,non-software,automotive,huge
+Decathlon,https://github.com/decathlon,non-software,retail,huge
+Deliveroo,https://github.com/deliveroo,software,tech,medium
+Deutsche Bank,https://github.com/deutschebank,non-software,banking,large
+DiDi,https://github.com/didi,software,tech,large
+Disney,https://github.com/disney,non-software,media,huge
+Dow Jones,https://github.com/dowjones,non-software,media,medium
+DXC Technology,https://github.com/dxc-technology,software,IT services,huge
+Elbit Systems,https://github.com/ElbitSystems,non-software,defense,large
+ENGIE Digital,https://github.com/engie-group,non-software,energy,huge
+Ericsson,https://github.com/ericsson,non-software,telecom,huge
+Etsy,https://github.com/etsy,software,tech,medium
+Europace,https://github.com/europace,software,fintech,small
+Fannie Mae,https://github.com/FannieMaeOpenSource,non-software,financial services,medium
+Fidelity Investments,https://github.com/fidelity,non-software,financial services,large
+Ford,https://github.com/ford,non-software,automotive,huge
+GitHub,https://github.com/github,software,software,medium
+GitLab,https://github.com/gitlabhq,software,software,medium
+Globant,https://github.com/globant,software,IT services,large
+HERE Global B.V,https://github.com/heremaps,software,tech,medium
+Huawei,https://github.com/huawei,software,tech,huge
+IBM,https://github.com/ibm,software,tech,huge
+Indeed,https://github.com/indeedeng,software,tech,large
+ING Bank,https://github.com/ing-bank,non-software,banking,large
+Intuit,https://github.com/intuit,software,software,large
+Leroy Merlin,https://github.com/leroymerlin,non-software,retail,huge
+Mercari,https://github.com/mercari,software,tech,medium
+Mercedes-Benz,https://github.com/mercedes-benz,non-software,automotive,huge
+Morgan Stanley,https://github.com/morganstanley,non-software,financial services,large
+NASA,https://github.com/nasa,non-software,government,large
+Nationwide,https://github.com/nationwide,non-software,insurance,large
+Nike,https://github.com/nike-inc,non-software,retail,large
+Nokia,https://github.com/nokia,non-software,telecom,large
+Nuance,https://github.com/nuance-communications,software,software,medium
+Nubank,https://github.com/nubank,software,fintech,medium
+Otto Group,https://github.com/otto-de,non-software,retail,large
+PayPal,https://github.com/paypal,software,fintech,large
+Philips,https://github.com/philips-software,non-software,healthcare,large
+Plaid,https://github.com/plaid,software,fintech,medium
+Royal Bank of Canada,https://github.com/rbc,non-software,banking,large
+SAP,https://github.com/sap,software,software,huge
+Seagate,https://github.com/seagate,non-software,hardware,large
+Shell,https://github.com/sede-open,non-software,energy,large
+Shutterstock,https://github.com/shutterstock,software,tech,medium
+Siemens,https://github.com/siemens,non-software,manufacturing,huge
+Skyscanner,https://github.com/skyscanner,software,tech,medium
+Societe Generale,https://github.com/societe-generale,non-software,banking,huge
+Sourcegraph,https://github.com/sourcegraph,software,software,small
+Spotify,https://github.com/spotify,software,tech,large
+Stack Overflow,https://github.com/stackexchange,software,software,small
+Stripe,https://github.com/stripe,software,fintech,medium
+Taxfix,https://github.com/taxfix,software,fintech,small
+Tencent,https://github.com/tencent,software,tech,huge
+Thales,https://github.com/thalesgroup,non-software,defense,large
+Tesco,https://github.com/tesco,non-software,retail,huge
+Toshiba,https://github.com/toshiba,non-software,electronics,huge
+Trend Micro,https://github.com/trendmicro,software,software,medium
+Trustpilot,https://github.com/trustpilot,software,tech,medium
+Twilio,https://github.com/twilio,software,software,medium
+US Bank,https://github.com/usbank,non-software,banking,large
+VMware,https://github.com/vmware,software,software,large
+Walmart,https://github.com/walmart,non-software,retail,huge
+Wayfair,https://github.com/wayfair,non-software,retail,medium
+Wiley,https://github.com/wiley,non-software,publishing,medium
+Wipro,https://github.com/wipro,software,IT services,huge
+Zalando,https://github.com/zalando,non-software,retail,large
+Zendesk,https://github.com/zendesk,software,software,medium
+Adeo Group,https://github.com/adeo,non-software,retail,huge
+Boston Consulting Group Gamma,https://github.com/BCG-X-Official,non-software,consulting,large
+CH Robinson,https://github.com/ch-robinson,non-software,logistics,large
+Deloitte US,https://github.com/deloitte,non-software,consulting,huge
+Deloitte Digital UK,https://github.com/deloittedigitaluk,non-software,consulting,huge
+Entelgy,https://github.com/InnotecSystem,software,IT services,medium
+EXFO,https://github.com/EXFO,non-software,telecom,medium
+Harvard Business Review,https://github.com/HBRGTech,non-software,media,small
+IAG,https://github.com/iagcl,non-software,insurance,large
+KPMG,https://github.com/KPMG-UK,non-software,consulting,huge
+Lloyds Bank,https://github.com/lloyds-banking-group,non-software,banking,large
+NAVEX Global,https://github.com/tnwinc,software,software,medium
+Panasonic Connect,https://github.com/PanasonicConnect,non-software,electronics,large
+Publicis Sapient,https://github.com/publicissapient,non-software,consulting,large
+The Hartford,https://github.com/thehartford,non-software,insurance,large
+Tray.io,https://github.com/trayio,software,software,small
+Viacom,https://github.com/ViacomInc,non-software,media,large
+WellSky,https://github.com/mediwareinc,software,software,medium

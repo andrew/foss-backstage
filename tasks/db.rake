@@ -8,7 +8,10 @@ def create_tables(db)
   db.execute_batch <<-SQL
     CREATE TABLE IF NOT EXISTS orgs (
       login TEXT PRIMARY KEY,
-      company TEXT
+      company TEXT,
+      type TEXT,
+      industry TEXT,
+      size TEXT
     );
 
     CREATE TABLE IF NOT EXISTS repos (
@@ -69,7 +72,8 @@ def create_tables(db)
       registry_name TEXT,
       downloads INTEGER DEFAULT 0,
       dependent_packages_count INTEGER DEFAULT 0,
-      repository_url TEXT
+      repository_url TEXT,
+      funding_links TEXT
     );
 
     CREATE TABLE IF NOT EXISTS published_packages (
@@ -150,7 +154,8 @@ namespace :db do
     puts "Loading orgs..."
     CSV.read("innersource_github_profiles.csv", headers: true).each do |row|
       login = row["GitHub Profile"].split("/").last
-      db.execute("INSERT OR IGNORE INTO orgs (login, company) VALUES (?, ?)", [login, row["Organisation"]])
+      db.execute("INSERT OR IGNORE INTO orgs (login, company, type, industry, size) VALUES (?, ?, ?, ?, ?)",
+        [login, row["Organisation"], row["type"], row["industry"], row["size"]])
     end
 
     # Repos
@@ -261,10 +266,14 @@ namespace :db do
         packages = JSON.parse(File.read(file))
         next if packages.empty?
         top = packages.max_by { |p| p["downloads"].to_i }
-        db.execute("INSERT INTO packages VALUES (?, ?, ?, ?, ?, ?, ?)",
+        funding = top["metadata"]&.dig("funding") || top["funding_links"] || []
+        funding = [funding] if funding.is_a?(String)
+        funding = funding.select { |l| (l.is_a?(String) && l.length > 0) || l.is_a?(Hash) }
+        funding_str = funding.map { |l| l.is_a?(Hash) ? l["url"] : l }.compact.join(",")
+        db.execute("INSERT INTO packages VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
           [ecosystem, package_name, top["ecosystem"], top["name"],
            top["downloads"].to_i, top["dependent_packages_count"].to_i,
-           top["repository_url"]])
+           top["repository_url"], funding_str.empty? ? nil : funding_str])
       end
     end
 
