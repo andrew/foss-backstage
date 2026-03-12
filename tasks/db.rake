@@ -62,6 +62,27 @@ def create_tables(db)
       description TEXT
     );
 
+    CREATE TABLE IF NOT EXISTS packages (
+      ecosystem TEXT,
+      package_name TEXT,
+      registry_ecosystem TEXT,
+      registry_name TEXT,
+      downloads INTEGER DEFAULT 0,
+      dependent_packages_count INTEGER DEFAULT 0,
+      repository_url TEXT
+    );
+
+    CREATE TABLE IF NOT EXISTS published_packages (
+      repo TEXT,
+      ecosystem TEXT,
+      name TEXT,
+      downloads INTEGER DEFAULT 0,
+      dependent_packages_count INTEGER DEFAULT 0
+    );
+
+    CREATE INDEX IF NOT EXISTS idx_packages_ecosystem ON packages(ecosystem, package_name);
+    CREATE INDEX IF NOT EXISTS idx_packages_repo_url ON packages(repository_url);
+    CREATE INDEX IF NOT EXISTS idx_published_packages_repo ON published_packages(repo);
     CREATE INDEX IF NOT EXISTS idx_repos_org ON repos(org);
     CREATE INDEX IF NOT EXISTS idx_maintainers_login ON maintainers(login);
     CREATE INDEX IF NOT EXISTS idx_maintainers_org ON maintainers(org);
@@ -211,6 +232,35 @@ namespace :db do
       end
     end
 
+    # Packages (dependency lookups)
+    puts "Loading packages..."
+    db.transaction do
+      Dir.glob("data/packages/**/*.json").each do |file|
+        ecosystem = File.basename(File.dirname(file))
+        package_name = File.basename(file, ".json").gsub("__", "/")
+        packages = JSON.parse(File.read(file))
+        next if packages.empty?
+        top = packages.max_by { |p| p["downloads"].to_i }
+        db.execute("INSERT INTO packages VALUES (?, ?, ?, ?, ?, ?, ?)",
+          [ecosystem, package_name, top["ecosystem"], top["name"],
+           top["downloads"].to_i, top["dependent_packages_count"].to_i,
+           top["repository_url"]])
+      end
+    end
+
+    # Published packages (org repo -> packages they publish)
+    puts "Loading published packages..."
+    db.transaction do
+      Dir.glob("data/published_packages/*.json").each do |file|
+        repo = File.basename(file, ".json").gsub("__", "/")
+        packages = JSON.parse(File.read(file))
+        packages.each do |p|
+          db.execute("INSERT INTO published_packages VALUES (?, ?, ?, ?, ?)",
+            [repo, p["ecosystem"], p["name"], p["downloads"].to_i, p["dependent_packages_count"].to_i])
+        end
+      end
+    end
+
     # Owners
     puts "Loading owners..."
     Dir.glob("data/owners/*.json").each do |file|
@@ -233,6 +283,8 @@ namespace :db do
     puts "  external_activity: #{db.get_first_value("SELECT COUNT(*) FROM external_activity")}"
     puts "  external_repos: #{db.get_first_value("SELECT COUNT(*) FROM external_repos")}"
     puts "  owners: #{db.get_first_value("SELECT COUNT(*) FROM owners")}"
+    puts "  packages: #{db.get_first_value("SELECT COUNT(*) FROM packages")}"
+    puts "  published_packages: #{db.get_first_value("SELECT COUNT(*) FROM published_packages")}"
     db.close
   end
 end
