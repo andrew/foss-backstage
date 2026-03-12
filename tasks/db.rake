@@ -117,6 +117,23 @@ def all_org_logins_for(login, company_orgs)
   company_orgs.select { |_, c| c == company }.keys.to_set
 end
 
+def load_bot_logins
+  bots = Set.new
+  if File.exist?("bots.csv")
+    CSV.read("bots.csv", headers: true).each do |row|
+      bots << row["login"]
+    end
+  end
+  bots
+end
+
+def bot?(login, bot_logins)
+  login.end_with?("-bot", "_bot") ||
+    login.include?("[bot]") ||
+    login.end_with?("Bot") ||
+    bot_logins.include?(login)
+end
+
 namespace :db do
   desc "Build SQLite database from collected data"
   task :build do
@@ -127,6 +144,7 @@ namespace :db do
     create_tables(db)
 
     company_orgs = load_org_aliases
+    bot_logins = load_bot_logins
 
     # Orgs
     puts "Loading orgs..."
@@ -153,6 +171,7 @@ namespace :db do
       contributors = JSON.parse(File.read(file))
       contributors.each do |c|
         next unless c["login"]
+        next if bot?(c["login"], bot_logins)
         db.execute("INSERT OR IGNORE INTO maintainers VALUES (?, ?, ?, ?)",
           [c["login"], org, c["commits"], c["maintainer_activity"]])
       end
@@ -180,6 +199,7 @@ namespace :db do
         data = JSON.parse(File.read(file))
         login = data["login"]
         next unless login
+        next if bot?(login, bot_logins)
 
         org_logins = Set.new
         # Find which orgs this person belongs to

@@ -1,0 +1,9 @@
+login,reason
+actions-user,GitHub Actions automation
+azure-sdk,Azure SDK automation
+invalid-email-address,Placeholder account
+semantic-release-bot,Semantic release automation
+greenkeeperio-bot,Greenkeeper legacy
+hubot,GitHub Hubot
+snyk-bot,Snyk security
+dependabot-support,Dependabot support account

@@ -93,3 +93,5 @@ Could innersource commons members do more? And where should they focus their eff
   which isc orgs are publishing packages, and how widely used are they?
   spot the consumption vs contribtion gap in the data, and identify the most critical packages that are widely used but receive no contribution from ISC members (also issues vs prs)
   funding for critical packages, and how much ISC members are contributing to that funding
+  grid of org icons 
+  bens graph 
