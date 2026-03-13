@@ -20,7 +20,9 @@ The package metadata includes download counts, dependent package counts, reposit
 
 **Stage 6: Bus factor.** For shared dependencies used by 5 or more ISC orgs, we fetched commit statistics from commits.ecosyste.ms. This gives total committers, past-year committers, total commits, and DDS (Developer Distribution Score, a measure of how concentrated commit authorship is). Combined with the package maintainer count from stage 5, this lets us identify packages with single points of failure.
 
-All six stages write flat JSON files. A build step loads everything into a SQLite database with indexes for efficient querying. The query tasks then run SQL against this database to produce the findings.
+All six stages write flat JSON files. In total the pipeline made around 358,000 HTTP requests to ecosyste.ms APIs, producing 8.6 GB of cached JSON across the `data/` directory. The biggest chunks are package metadata (4.5 GB, 62,000 files), external repo lookups (1 GB, 179,000 files), and owner metadata (215 MB, 55,000 files).
+
+A build step loads everything into a SQLite database (448 MB) with indexes for efficient querying. The database holds 108 orgs, 23,696 repos, 76,724 maintainers, 2.6 million dependency records, 236,000 external activity records, 162,000 external repos, 49,000 packages, and 14,557 published packages. The query tasks run SQL against this database to produce the findings.
 
 The whole pipeline is idempotent. Each fetch task skips files that already exist, so you can re-run after adding new orgs or if a fetch gets interrupted. Rebuilding the database from the JSON files takes about 30 seconds.
 
