@@ -95,3 +95,7 @@ Could innersource commons members do more? And where should they focus their eff
   funding for critical packages, and how much ISC members are contributing to that funding
   grid of org icons 
   bens graph 
+
+
+	https://medium.com/@BenJam/the-impact-of-civic-tech-on-open-source-81816ca2aed3
+	https://github.com/librariesio/libraries.io/issues/1019
