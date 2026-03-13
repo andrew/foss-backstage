@@ -21,8 +21,41 @@ namespace :packages do
     FileUtils.mkdir_p(output_dir)
 
     db = SQLite3::Database.new(DB_PATH)
-    packages = db.execute("SELECT DISTINCT ecosystem, package_name FROM dependencies ORDER BY ecosystem, package_name")
+    raw = db.execute("SELECT DISTINCT ecosystem, package_name FROM dependencies ORDER BY ecosystem, package_name")
     db.close
+
+    # Strip versions using purl parsing to deduplicate (e.g. csstype@3.1.0 -> csstype)
+    packages = raw.filter_map { |(eco, name)|
+      next if name.nil? || name.strip.empty?
+      clean = name.sub(/\(.*\)$/, "")  # remove parenthesized peer deps
+      clean = clean.split("=>").first.strip  # remove go replace targets
+      next if clean.empty?
+      next if clean.include?("${")  # skip unresolved template variables
+
+      purl_type = PURL_TYPES[eco] || eco
+
+      # Split namespace and name
+      if purl_type == "maven" && clean.include?(":")
+        ns, pkg_name = clean.split(":", 2)
+      elsif clean.include?("/")
+        ns, _, pkg_name = clean.rpartition("/")
+      else
+        ns = nil
+        pkg_name = clean
+      end
+
+      # Strip version suffix
+      pkg_name, _ = pkg_name.split("@", 2) if pkg_name.include?("@")
+      next if pkg_name.nil? || pkg_name.strip.empty?
+
+      begin
+        p = Purl::PackageURL.new(type: purl_type, namespace: ns, name: pkg_name)
+      rescue Purl::ValidationError, Purl::InvalidNameError, Purl::MalformedUrlError
+        next
+      end
+      clean = p.namespace ? "#{p.namespace}/#{p.name}" : p.name
+      [eco, clean]
+    }.uniq
 
     # Skip relative paths and dot-prefixed names
     packages = packages.reject { |(_, name)| name.start_with?(".") }
