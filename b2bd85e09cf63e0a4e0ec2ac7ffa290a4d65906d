@@ -1,0 +1,23 @@
+tasks/repos.rake
+  bffcdb68eaf4dbf3 1,5,24-25,27-30,32-35,37-39,41-43
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.10",
+  "base_commit_sha": "b2bd85e09cf63e0a4e0ec2ac7ffa290a4d65906d",
+  "prompts": {
+    "bffcdb68eaf4dbf3": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "233c39d9-9c25-422a-99af-3914d5f0861a",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Andrew Nesbitt <andrewnez@gmail.com>",
+      "messages": [],
+      "total_additions": 53,
+      "total_deletions": 27,
+      "accepted_lines": 52,
+      "overriden_lines": 0
+    }
+  }
+}
