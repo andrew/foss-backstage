@@ -1,14 +1,9 @@
+require_relative "shared"
 require "csv"
-require "json"
-require "octokit"
-require "fileutils"
 
 namespace :repos do
-  desc "Fetch repos for all orgs from GitHub (LIMIT=n to restrict)"
+  desc "Fetch repos for all orgs from repos.ecosyste.ms (LIMIT=n to restrict)"
   task :fetch do
-    client = Octokit::Client.new(access_token: ENV.fetch("GITHUB_TOKEN"))
-    client.auto_paginate = true
-
     orgs = CSV.read("innersource_github_profiles.csv", headers: true)
     orgs = orgs.first(ENV["LIMIT"].to_i) if ENV["LIMIT"]
     output_dir = "data/repos"
@@ -26,28 +21,26 @@ namespace :repos do
 
       puts "Fetching repos for #{org_name} (#{github_login})..."
 
-      begin
-        repos = client.org_repos(github_login, type: "public").map do |repo|
-          {
-            full_name: repo.full_name,
-            fork: repo.fork,
-            archived: repo.archived,
-            status: repo.archived ? "archived" : (repo.disabled ? "disabled" : "active")
-          }
-        end
+      repos = []
+      page = 1
 
-        File.write(output_file, JSON.pretty_generate(repos))
-        puts "  #{repos.size} repos"
-      rescue Octokit::TooManyRequests => e
-        wait = client.rate_limit.resets_in + 1
-        puts "  Rate limited, sleeping #{wait}s..."
-        sleep wait
-        retry
-      rescue Octokit::NotFound
-        puts "  Not found, skipping"
-      rescue Octokit::Error => e
-        puts "  Error: #{e.message}"
+      loop do
+        data = api_get(REPOS_API, "hosts/GitHub/owners/#{github_login}/repositories?page=#{page}")
+        break if data.nil? || !data.is_a?(Array) || data.empty?
+        repos.concat(data.map { |r|
+          {
+            full_name: r["full_name"],
+            fork: r["fork"],
+            archived: r["archived"],
+            status: r["archived"] ? "archived" : (r["status"] == "disabled" ? "disabled" : "active")
+          }
+        })
+        break if data.length < 100
+        page += 1
       end
+
+      File.write(output_file, JSON.pretty_generate(repos))
+      puts "  #{repos.size} repos"
     end
   end
 end
