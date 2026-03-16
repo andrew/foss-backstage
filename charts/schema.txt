@@ -1,0 +1,46 @@
+repos.ecosyste.ms                       repos.ecosyste.ms                           repos.ecosyste.ms                                       
+┌────────────────────────────┐          ┌────────────────────────────────┐          ┌──────────────────────────────────────────────────────┐
+│            orgs            │          │             repos              │          │                     dependencies                     │
+├────────────────────────────┤          ├────────────────────────────────┤          ├──────────────────────────────────────────────────────┤
+│ login      TEXT    PK      │◄─────────│ org         TEXT    FK         │◄─────────│ repo            TEXT    FK                           │
+│ company    TEXT            │          │ full_name   TEXT    PK         │          │ ecosystem       TEXT    ──┐                          │
+│ type       TEXT            │          │ fork        BOOL               │          │ package_name    TEXT    ──┼──► packages              │
+│ industry   TEXT            │          │ archived    BOOL               │          │ requirements    TEXT      │                          │
+│ size       TEXT            │          │ status      TEXT               │          │ kind            TEXT      │                          │
+└────────────────────────────┘          └────────────────────────────────┘          └──────────────────────────────────────────────────────┘
+               ▲                                         │
+               │                                         │
+commits.ecosyste.ms                     packages.ecosyste.ms                        packages.ecosyste.ms                                    
+┌────────────────────────────┐          ┌────────────────┴───────────────┐          ┌──────────────────────────────────────────────────────┐
+│        maintainers         │          │       published_packages       │          │                       packages                       │
+├────────────────────────────┤          ├────────────────────────────────┤          ├──────────────────────────────────────────────────────┤
+│ login       TEXT    PK     │          │ repo        TEXT    FK         │          │ ecosystem                  TEXT  PK                  │
+│ org         TEXT    PK,FK  │          │ ecosystem   TEXT               │          │ package_name               TEXT  PK                  │
+│ commits          INT       │          │ name        TEXT               │          │ downloads                  INT                       │
+│ maintainer_      INT       │          │ downloads   INT                │          │ dependent_packages_count   INT                       │
+│   activity                 │          │ dependent_packages             │          │ repository_url             TEXT                      │
+└────────────────────────────┘          │   _count    INT                │          │ funding_links              TEXT                      │
+                                        └────────────────────────────────┘          │ maintainer_count           INT                       │
+                                                                                    │ critical                   BOOL                      │
+                                                                                    │ latest_release_published_at TEXT                     │
+                                                                                    │ issues_count               INT                       │
+                                                                                    │ pull_requests_count        INT                       │
+                                                                                    │ avg_time_to_close_issue    REAL                      │
+                                                                                    │ past_year_issues           INT                       │
+                                                                                    │ past_year_pull_requests    INT                       │
+                                                                                    └──────────────────────────────────────────────────────┘
+               │
+               │
+commits.ecosyste.ms                     repos.ecosyste.ms                           repos.ecosyste.ms                                       
+issues.ecosyste.ms                                                                                                                          
+┌──────────────┴─────────────┐          ┌────────────────────────────────┐          ┌──────────────────────────────────────────────────────┐
+│     external_activity      │          │         external_repos         │          │                        owners                        │
+├────────────────────────────┤          ├────────────────────────────────┤          ├──────────────────────────────────────────────────────┤
+│ login     TEXT    FK       │          │ full_name   TEXT    PK         │          │ login              TEXT    PK                        │
+│ repo      TEXT    FK       │──────────► owner       TEXT               │          │ name               TEXT                              │
+│ source    TEXT             │          │ stars       INT                │          │ kind               TEXT                              │
+│ count     INT              │          │ language    TEXT               │          │ company            TEXT                              │
+│                            │          │ license     TEXT               │          │ description        TEXT                              │
+│                            │          │ archived    BOOL               │          │                                                      │
+│                            │          │ topics      TEXT               │          │                                                      │
+└────────────────────────────┘          └────────────────────────────────┘          └──────────────────────────────────────────────────────┘

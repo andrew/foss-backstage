@@ -74,7 +74,18 @@ def create_tables(db)
       dependent_packages_count INTEGER DEFAULT 0,
       repository_url TEXT,
       funding_links TEXT,
-      maintainer_count INTEGER DEFAULT 0
+      maintainer_count INTEGER DEFAULT 0,
+      critical BOOLEAN DEFAULT 0,
+      latest_release_published_at TEXT,
+      issues_count INTEGER DEFAULT 0,
+      issues_closed_count INTEGER DEFAULT 0,
+      pull_requests_count INTEGER DEFAULT 0,
+      pull_requests_closed_count INTEGER DEFAULT 0,
+      avg_time_to_close_issue REAL,
+      avg_time_to_close_pull_request REAL,
+      past_year_issues INTEGER DEFAULT 0,
+      past_year_pull_requests INTEGER DEFAULT 0,
+      past_year_merged_pull_requests INTEGER DEFAULT 0
     );
 
     CREATE TABLE IF NOT EXISTS published_packages (
@@ -272,11 +283,19 @@ namespace :db do
         funding = funding.select { |l| (l.is_a?(String) && l.length > 0) || l.is_a?(Hash) }
         funding_str = funding.map { |l| l.is_a?(Hash) ? l["url"] : l }.compact.join(",")
         maintainer_count = (top["maintainers"] || []).size
-        db.execute("INSERT INTO packages VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        critical = top["critical"] == true ? 1 : 0
+        latest_release = top["latest_release_published_at"]
+        im = top["issue_metadata"] || {}
+        db.execute("INSERT INTO packages VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
           [ecosystem, package_name, top["ecosystem"], top["name"],
            top["downloads"].to_i, top["dependent_packages_count"].to_i,
            top["repository_url"], funding_str.empty? ? nil : funding_str,
-           maintainer_count])
+           maintainer_count, critical, latest_release,
+           im["issues_count"].to_i, im["issues_closed_count"].to_i,
+           im["pull_requests_count"].to_i, im["pull_requests_closed_count"].to_i,
+           im["avg_time_to_close_issue"]&.to_f, im["avg_time_to_close_pull_request"]&.to_f,
+           im["past_year_issues_count"].to_i, im["past_year_pull_requests_count"].to_i,
+           im["past_year_merged_pull_requests_count"].to_i])
       end
     end
 

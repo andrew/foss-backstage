@@ -1,0 +1,142 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 994 470">
+  <text x="497" y="18" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#1D1D28">Consumption vs contribution across shared dependencies</text>
+  <rect x="310" y="30" width="14" height="14" fill="#7878EF" rx="2"/><text x="328" y="42" font-family="sans-serif" font-size="11" fill="#1D1D28">ISC orgs depending</text>
+  <rect x="450" y="30" width="14" height="14" fill="#45E56E" rx="2"/><text x="468" y="42" font-family="sans-serif" font-size="11" fill="#1D1D28">Commits</text>
+  <rect x="540" y="30" width="14" height="14" fill="#FF807D" rx="2"/><text x="558" y="42" font-family="sans-serif" font-size="11" fill="#1D1D28">Issues</text>
+  <line x1="60" y1="330" x2="924" y2="330" stroke="#DCDCE0" stroke-width="1"/>
+  <line x1="60" y1="330" x2="60" y2="110" stroke="#DCDCE0" stroke-width="1"/>
+  <line x1="56" y1="330" x2="60" y2="330" stroke="#DCDCE0" stroke-width="1"/>
+  <text x="52" y="334" text-anchor="end" font-family="sans-serif" font-size="9" fill="#7878EF">0</text>
+  <line x1="56" y1="301.1" x2="60" y2="301.1" stroke="#DCDCE0" stroke-width="1"/>
+  <text x="52" y="305.1" text-anchor="end" font-family="sans-serif" font-size="9" fill="#7878EF">10</text>
+  <line x1="56" y1="272.1" x2="60" y2="272.1" stroke="#DCDCE0" stroke-width="1"/>
+  <text x="52" y="276.1" text-anchor="end" font-family="sans-serif" font-size="9" fill="#7878EF">20</text>
+  <line x1="56" y1="243.2" x2="60" y2="243.2" stroke="#DCDCE0" stroke-width="1"/>
+  <text x="52" y="247.2" text-anchor="end" font-family="sans-serif" font-size="9" fill="#7878EF">30</text>
+  <line x1="56" y1="220.0" x2="60" y2="220.0" stroke="#DCDCE0" stroke-width="1"/>
+  <text x="52" y="224.0" text-anchor="end" font-family="sans-serif" font-size="9" fill="#7878EF">38</text>
+  <text x="12" y="275.0" font-family="sans-serif" font-size="10" fill="#7878EF" transform="rotate(-90, 12, 275.0)">ISC orgs depending</text>
+  <line x1="924" y1="330" x2="924" y2="110" stroke="#DCDCE0" stroke-width="1"/>
+  <line x1="924" y1="330" x2="928" y2="330" stroke="#DCDCE0" stroke-width="1"/>
+  <text x="932" y="334" font-family="sans-serif" font-size="9" fill="#45E56E">0</text>
+  <line x1="924" y1="311.40775417191867" x2="928" y2="311.40775417191867" stroke="#DCDCE0" stroke-width="1"/>
+  <text x="932" y="315.40775417191867" font-family="sans-serif" font-size="9" fill="#45E56E">1</text>
+  <line x1="924" y1="265.681396920858" x2="928" y2="265.681396920858" stroke="#DCDCE0" stroke-width="1"/>
+  <text x="932" y="269.681396920858" font-family="sans-serif" font-size="9" fill="#45E56E">10</text>
+  <line x1="924" y1="206.20889533732452" x2="928" y2="206.20889533732452" stroke="#DCDCE0" stroke-width="1"/>
+  <text x="932" y="210.20889533732452" font-family="sans-serif" font-size="9" fill="#45E56E">100</text>
+  <line x1="924" y1="144.6868791716135" x2="928" y2="144.6868791716135" stroke="#DCDCE0" stroke-width="1"/>
+  <text x="932" y="148.6868791716135" font-family="sans-serif" font-size="9" fill="#45E56E">1.0k</text>
+  <line x1="924" y1="110.0" x2="928" y2="110.0" stroke="#DCDCE0" stroke-width="1"/>
+  <text x="932" y="114.0" font-family="sans-serif" font-size="9" fill="#45E56E">3.6k</text>
+  <text x="979" y="275.0" font-family="sans-serif" font-size="10" fill="#45E56E" transform="rotate(90, 979, 275.0)">Contributions</text>
+  <rect x="63" y="220.0" width="7" height="110.0" fill="#7878EF" rx="1"/>
+  <rect x="71" y="217.21777855594206" width="7" height="112.78222144405795" fill="#45E56E" rx="1"/>
+  <rect x="79" y="277.80496716243084" width="7" height="52.19503283756916" fill="#FF807D" rx="1"/>
+  <rect x="95" y="222.9" width="7" height="107.1" fill="#7878EF" rx="1"/>
+  <rect x="103" y="300.5319875583017" width="7" height="29.468012441698317" fill="#45E56E" rx="1"/>
+  <rect x="111" y="292.8155083438373" width="7" height="37.18449165616272" fill="#FF807D" rx="1"/>
+  <rect x="127" y="222.9" width="7" height="107.1" fill="#7878EF" rx="1"/>
+  <rect x="135" y="330" width="7" height="0" fill="#45E56E" rx="1"/>
+  <rect x="143" y="330" width="7" height="0" fill="#FF807D" rx="1"/>
+  <rect x="159" y="222.9" width="7" height="107.1" fill="#7878EF" rx="1"/>
+  <rect x="167" y="330" width="7" height="0" fill="#45E56E" rx="1"/>
+  <rect x="175" y="330" width="7" height="0" fill="#FF807D" rx="1"/>
+  <rect x="191" y="222.9" width="7" height="107.1" fill="#7878EF" rx="1"/>
+  <rect x="199" y="330" width="7" height="0" fill="#45E56E" rx="1"/>
+  <rect x="207" y="330" width="7" height="0" fill="#FF807D" rx="1"/>
+  <rect x="223" y="228.7" width="7" height="101.3" fill="#7878EF" rx="1"/>
+  <rect x="231" y="330" width="7" height="0" fill="#45E56E" rx="1"/>
+  <rect x="239" y="292.8155083438373" width="7" height="37.18449165616272" fill="#FF807D" rx="1"/>
+  <rect x="255" y="231.6" width="7" height="98.4" fill="#7878EF" rx="1"/>
+  <rect x="263" y="311.40775417191867" width="7" height="18.59224582808136" fill="#45E56E" rx="1"/>
+  <rect x="271" y="292.8155083438373" width="7" height="37.18449165616272" fill="#FF807D" rx="1"/>
+  <rect x="287" y="231.6" width="7" height="98.4" fill="#7878EF" rx="1"/>
+  <rect x="295" y="110.0" width="7" height="220.0" fill="#45E56E" rx="1"/>
+  <rect x="303" y="261.2005150883247" width="7" height="68.79948491167528" fill="#FF807D" rx="1"/>
+  <rect x="319" y="240.3" width="7" height="89.7" fill="#7878EF" rx="1"/>
+  <rect x="327" y="330" width="7" height="0" fill="#45E56E" rx="1"/>
+  <rect x="335" y="330" width="7" height="0" fill="#FF807D" rx="1"/>
+  <rect x="351" y="248.9" width="7" height="81.1" fill="#7878EF" rx="1"/>
+  <rect x="359" y="330" width="7" height="0" fill="#45E56E" rx="1"/>
+  <rect x="367" y="281.9397417302203" width="7" height="48.06025826977968" fill="#FF807D" rx="1"/>
+  <rect x="383" y="266.3" width="7" height="63.7" fill="#7878EF" rx="1"/>
+  <rect x="391" y="330" width="7" height="0" fill="#45E56E" rx="1"/>
+  <rect x="399" y="311.40775417191867" width="7" height="18.59224582808136" fill="#FF807D" rx="1"/>
+  <rect x="415" y="277.9" width="7" height="52.1" fill="#7878EF" rx="1"/>
+  <rect x="423" y="330" width="7" height="0" fill="#45E56E" rx="1"/>
+  <rect x="431" y="330" width="7" height="0" fill="#FF807D" rx="1"/>
+  <rect x="447" y="286.6" width="7" height="43.4" fill="#7878EF" rx="1"/>
+  <rect x="455" y="153.74959493497695" width="7" height="176.25040506502305" fill="#45E56E" rx="1"/>
+  <rect x="463" y="255.63101668767456" width="7" height="74.36898331232544" fill="#FF807D" rx="1"/>
+  <rect x="479" y="289.5" width="7" height="40.5" fill="#7878EF" rx="1"/>
+  <rect x="487" y="300.5319875583017" width="7" height="29.468012441698317" fill="#45E56E" rx="1"/>
+  <rect x="495" y="330" width="7" height="0" fill="#FF807D" rx="1"/>
+  <rect x="511" y="292.4" width="7" height="37.6" fill="#7878EF" rx="1"/>
+  <rect x="519" y="140.3651843989193" width="7" height="189.6348156010807" fill="#45E56E" rx="1"/>
+  <rect x="527" y="330" width="7" height="0" fill="#FF807D" rx="1"/>
+  <rect x="543" y="292.4" width="7" height="37.6" fill="#7878EF" rx="1"/>
+  <rect x="551" y="148.47995560442263" width="7" height="181.52004439557737" fill="#45E56E" rx="1"/>
+  <rect x="559" y="179.05065171221798" width="7" height="150.94934828778202" fill="#FF807D" rx="1"/>
+  <rect x="575" y="295.3" width="7" height="34.7" fill="#7878EF" rx="1"/>
+  <rect x="583" y="330" width="7" height="0" fill="#45E56E" rx="1"/>
+  <rect x="591" y="330" width="7" height="0" fill="#FF807D" rx="1"/>
+  <rect x="607" y="301.1" width="7" height="28.9" fill="#7878EF" rx="1"/>
+  <rect x="615" y="145.01037584675646" width="7" height="184.98962415324354" fill="#45E56E" rx="1"/>
+  <rect x="623" y="231.73250264662641" width="7" height="98.26749735337359" fill="#FF807D" rx="1"/>
+  <rect x="639" y="301.1" width="7" height="28.9" fill="#7878EF" rx="1"/>
+  <rect x="647" y="194.2063128554833" width="7" height="135.7936871445167" fill="#45E56E" rx="1"/>
+  <rect x="655" y="277.80496716243084" width="7" height="52.19503283756916" fill="#FF807D" rx="1"/>
+  <rect x="671" y="303.9" width="7" height="26.1" fill="#7878EF" rx="1"/>
+  <rect x="679" y="121.11951248705319" width="7" height="208.88048751294681" fill="#45E56E" rx="1"/>
+  <rect x="687" y="300.5319875583017" width="7" height="29.468012441698317" fill="#FF807D" rx="1"/>
+  <rect x="703" y="303.9" width="7" height="26.1" fill="#7878EF" rx="1"/>
+  <rect x="711" y="292.8155083438373" width="7" height="37.18449165616272" fill="#45E56E" rx="1"/>
+  <rect x="719" y="300.5319875583017" width="7" height="29.468012441698317" fill="#FF807D" rx="1"/>
+  <rect x="735" y="306.8" width="7" height="23.2" fill="#7878EF" rx="1"/>
+  <rect x="743" y="146.45911102991647" width="7" height="183.54088897008353" fill="#45E56E" rx="1"/>
+  <rect x="751" y="231.73250264662641" width="7" height="98.26749735337359" fill="#FF807D" rx="1"/>
+  <rect x="767" y="309.7" width="7" height="20.3" fill="#7878EF" rx="1"/>
+  <rect x="775" y="330" width="7" height="0" fill="#45E56E" rx="1"/>
+  <rect x="783" y="330" width="7" height="0" fill="#FF807D" rx="1"/>
+  <rect x="799" y="312.6" width="7" height="17.4" fill="#7878EF" rx="1"/>
+  <rect x="807" y="124.18159005369472" width="7" height="205.81840994630528" fill="#45E56E" rx="1"/>
+  <rect x="815" y="227.8941171813289" width="7" height="102.10588281867109" fill="#FF807D" rx="1"/>
+  <rect x="831" y="312.6" width="7" height="17.4" fill="#7878EF" rx="1"/>
+  <rect x="839" y="330" width="7" height="0" fill="#45E56E" rx="1"/>
+  <rect x="847" y="330" width="7" height="0" fill="#FF807D" rx="1"/>
+  <rect x="863" y="312.6" width="7" height="17.4" fill="#7878EF" rx="1"/>
+  <rect x="871" y="147.7492060058757" width="7" height="182.2507939941243" fill="#45E56E" rx="1"/>
+  <rect x="879" y="286.8301420647255" width="7" height="43.169857935274464" fill="#FF807D" rx="1"/>
+  <rect x="895" y="315.5" width="7" height="14.5" fill="#7878EF" rx="1"/>
+  <rect x="903" y="330" width="7" height="0" fill="#45E56E" rx="1"/>
+  <rect x="911" y="330" width="7" height="0" fill="#FF807D" rx="1"/>
+  <text x="74" y="338" font-family="sans-serif" font-size="8" fill="#4C4C61" transform="rotate(45, 74, 338)">actions/checkout</text>
+  <text x="106" y="338" font-family="sans-serif" font-size="8" fill="#4C4C61" transform="rotate(45, 106, 338)">semver</text>
+  <text x="138" y="338" font-family="sans-serif" font-size="8" fill="#4C4C61" transform="rotate(45, 138, 338)">supports-color</text>
+  <text x="170" y="338" font-family="sans-serif" font-size="8" fill="#4C4C61" transform="rotate(45, 170, 338)">has-flag</text>
+  <text x="202" y="338" font-family="sans-serif" font-size="8" fill="#4C4C61" transform="rotate(45, 202, 338)">inherits</text>
+  <text x="234" y="338" font-family="sans-serif" font-size="8" fill="#4C4C61" transform="rotate(45, 234, 338)">punycode</text>
+  <text x="266" y="338" font-family="sans-serif" font-size="8" fill="#4C4C61" transform="rotate(45, 266, 338)">execa</text>
+  <text x="298" y="338" font-family="sans-serif" font-size="8" fill="#4C4C61" transform="rotate(45, 298, 338)">@types/node</text>
+  <text x="330" y="338" font-family="sans-serif" font-size="8" fill="#4C4C61" transform="rotate(45, 330, 338)">strip-final-newline</text>
+  <text x="362" y="338" font-family="sans-serif" font-size="8" fill="#4C4C61" transform="rotate(45, 362, 338)">regexpp</text>
+  <text x="394" y="338" font-family="sans-serif" font-size="8" fill="#4C4C61" transform="rotate(45, 394, 338)">webpack-merge</text>
+  <text x="426" y="338" font-family="sans-serif" font-size="8" fill="#4C4C61" transform="rotate(45, 426, 338)">run-queue</text>
+  <text x="458" y="338" font-family="sans-serif" font-size="8" fill="#4C4C61" transform="rotate(45, 458, 338)">activesupport</text>
+  <text x="490" y="338" font-family="sans-serif" font-size="8" fill="#4C4C61" transform="rotate(45, 490, 338)">nodemon</text>
+  <text x="522" y="338" font-family="sans-serif" font-size="8" fill="#4C4C61" transform="rotate(45, 522, 338)">rx-lite</text>
+  <text x="554" y="338" font-family="sans-serif" font-size="8" fill="#4C4C61" transform="rotate(45, 554, 338)">torch</text>
+  <text x="586" y="338" font-family="sans-serif" font-size="8" fill="#4C4C61" transform="rotate(45, 586, 338)">html-element-map</text>
+  <text x="618" y="338" font-family="sans-serif" font-size="8" fill="#4C4C61" transform="rotate(45, 618, 338)">puppeteer</text>
+  <text x="650" y="338" font-family="sans-serif" font-size="8" fill="#4C4C61" transform="rotate(45, 650, 338)">tailwindcss</text>
+  <text x="682" y="338" font-family="sans-serif" font-size="8" fill="#4C4C61" transform="rotate(45, 682, 338)">rspec</text>
+  <text x="714" y="338" font-family="sans-serif" font-size="8" fill="#4C4C61" transform="rotate(45, 714, 338)">prometheus-client</text>
+  <text x="746" y="338" font-family="sans-serif" font-size="8" fill="#4C4C61" transform="rotate(45, 746, 338)">ebpf</text>
+  <text x="778" y="338" font-family="sans-serif" font-size="8" fill="#4C4C61" transform="rotate(45, 778, 338)">racc</text>
+  <text x="810" y="338" font-family="sans-serif" font-size="8" fill="#4C4C61" transform="rotate(45, 810, 338)">electron</text>
+  <text x="842" y="338" font-family="sans-serif" font-size="8" fill="#4C4C61" transform="rotate(45, 842, 338)">conda/python</text>
+  <text x="874" y="338" font-family="sans-serif" font-size="8" fill="#4C4C61" transform="rotate(45, 874, 338)">cocoapods</text>
+  <text x="906" y="338" font-family="sans-serif" font-size="8" fill="#4C4C61" transform="rotate(45, 906, 338)">js-sha3</text>
+  <text x="497" y="460" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#4C4C61">Packages ordered by number of ISC orgs depending on them. Contribution axis is log scale.</text>
+</svg>

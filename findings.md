@@ -18,15 +18,17 @@ Microsoft dominates with ~39,700 maintainers across 13 GitHub orgs, roughly half
 
 ## Q2: Do ISC members publish well-used open source?
 
-26.6% of active repos publish packages (3,776 repos, 14,557 packages). Total downloads: 29.9 billion. Microsoft accounts for 26.3 billion, driven by NuGet test platform packages (1.5 billion each), tslib (1.3 billion npm), and the windows-sys Cargo crate family (769 million).
+26.6% of active repos publish packages (3,776 repos, 14,557 packages). Software companies publish from 27.3% of their repos vs 23.9% for non-software companies.
 
-Software companies publish packages from 27.3% of their repos vs 23.9% for non-software companies. Top publishers after Microsoft are Stack Overflow (998 million, mostly StackExchange.Redis), Adobe (565 million), Stripe (505 million), Twilio (470 million), and GitHub (428 million).
+8.25 million repos depend on ISC-published packages. Microsoft's TypeScript dominates: 2.1 million dependent repos. tslib follows at 1.7 million. After that it drops sharply -- @rushstack/eslint-patch at 926k, then GitHub's pages-gem at 369k. Without the TypeScript packages: 3.5 million dependent repos. Outside Microsoft, the most-depended-on ISC packages are GitHub's Jekyll gems, Stripe's client libraries (46k dependent repos across npm/Ruby/Python), Twilio's SDKs (22k), and Adobe's react-spectrum component library (11k).
+
+Total downloads: 29.9 billion. A caveat: download periods vary by ecosystem. npm figures (3.9 billion of the total) are last-month downloads from the registry. nuget (17.7 billion) and cargo (6.3 billion) are all-time. Microsoft accounts for 26.3 billion, driven by NuGet test platform packages (1.5 billion each), tslib (1.3 billion/month npm), and the windows-sys Cargo crate family (769 million all-time). Top publishers after Microsoft are Stack Overflow (998 million, mostly StackExchange.Redis), Adobe (565 million), Stripe (505 million), Twilio (470 million), and GitHub (428 million).
 
 Some orgs punch above their repo count. CH Robinson has 6 packages with 28 million downloads. Nubank has 24 with 15 million. Philips has 47 with 6.9 million.
 
 ## Q3: Do ISC members contribute to external open source?
 
-8,142 maintainers (10.6%) have activity on repos outside their own organisation. 4.9 million contributions to 107,206 external repos.
+8,142 maintainers (10.6%) have activity on repos outside their own organisation. 4.6 million contributions to 107,206 external repos.
 
 By participation rate: IBM (40.8%), Comcast (26.7%), Nokia (25.7%), Adobe (23.5%), Sourcegraph (22.8%), Siemens (21.0%). SAP has 317 active but that's only 3.9% of 8,078 total.
 
@@ -36,13 +38,14 @@ About 90% of maintainers show no external activity. The ones who do are prolific
 
 ## Q6: Activity type breakdown
 
-Overall:
-- Commits: 4.1 million (84%) by 5,808 people
-- Pull requests: 359k (7.4%) by 6,612 people
-- Maintaining: 241k (4.9%) by 3,559 people
-- Issues: 156k (3.2%) by 6,258 people
+4.6 million external contributions total:
+- Commits: 4.1 million (89%) by 5,808 people
+- Pull requests: 359k (8%) by 6,612 people
+- Issues: 156k (3%) by 6,258 people
 
-More people open issues and PRs than commit, but committers produce far higher volume per person. Maintaining involves the fewest people but high volume each, a core group doing heavy project maintenance.
+More people open issues and PRs than commit, but committers produce far higher volume per person.
+
+Of the 6,258 people filing issues, 5,538 (88%) also contribute code (commits or PRs). Only 720 people file issues without any code contributions, and they account for just 1,941 issues (1.2% of the total). Issue-only behaviour is rare and low volume.
 
 ## Q5: Do ISC members contribute to their own dependencies?
 
@@ -54,15 +57,19 @@ After that there's a steep drop. ING Bank (22k contributions), Tencent (12k), Me
 
 The "most contributed-to dependencies" list is dominated by DefinitelyTyped (@types/* packages). Since all @types packages live in one monorepo, every contributor to DefinitelyTyped shows up against every @types package their org depends on. The actual number of distinct upstream projects receiving contributions is lower than the per-package count suggests. Same effect with Parcel (@parcel/*) for Adobe.
 
+In raw commit terms: 2,704 ISC members have contributed 235,866 commits to their dependency packages, 4.3% of the 5.5 million total commits on those repos. Narrowing to critical packages: 1,360 members have contributed 40,979 commits, 1.2% of the 3.4 million total commits on critical repos -- 30 commits per person.
+
 ## Q7: Shared dependencies
 
 The most widely used dependency: actions/checkout (68 orgs). Then npm/inherits and npm/semver (67 orgs each), npm/supports-color and npm/has-flag (67 orgs). After that the usual npm plumbing: debug, chalk, once, ms, minimatch, balanced-match (all 66 orgs).
 
 npm dominates the dependency graph. The top shared packages by download volume: semver (2.5 billion), ansi-styles (2.2 billion), debug (2.2 billion), minimatch (2 billion), strip-ansi (1.8 billion), chalk (1.7 billion). These are the plumbing of npm.
 
+Of the 9,301 shared dependencies (5+ orgs) with known repos: 4,025 (43%) are maintained by a single registry maintainer. 4,208 (45%) are marked as critical to all open source by packages.ecosyste.ms. 3,377 (36%) show signs of being unhealthy: no release in the past two years while still having open issues. 1,428 of those combine stale releases, open issues, and only one or two maintainers.
+
 ## Q8: Dependency vs contribution gap
 
-9,301 shared dependencies (5+ orgs) with known repos. 4,508 (48%) receive some contribution from ISC maintainers. 4,793 (52%) receive none.
+4,508 (48%) of those shared dependencies receive some contribution from ISC maintainers. 4,793 (52%) receive none.
 
 That 48% is inflated by monorepo effects. DefinitelyTyped contributions map to hundreds of @types packages. Parcel contributions map to dozens of @parcel packages. The number of distinct upstream projects getting real attention is much smaller.
 

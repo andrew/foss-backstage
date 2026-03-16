@@ -1,0 +1,126 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 876 470">
+  <text x="438" y="18" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#1D1D28">ISC contributions to critical open source packages</text>
+  <rect x="288" y="30" width="14" height="14" fill="#7878EF" rx="2"/><text x="306" y="42" font-family="sans-serif" font-size="11" fill="#1D1D28">Dependent packages</text>
+  <rect x="438" y="30" width="14" height="14" fill="#45E56E" rx="2"/><text x="456" y="42" font-family="sans-serif" font-size="11" fill="#1D1D28">ISC commits</text>
+  <rect x="548" y="30" width="14" height="14" fill="#FF807D" rx="2"/><text x="566" y="42" font-family="sans-serif" font-size="11" fill="#1D1D28">ISC issues</text>
+  <line x1="70" y1="330" x2="806" y2="330" stroke="#DCDCE0" stroke-width="1"/>
+  <line x1="70" y1="330" x2="70" y2="110" stroke="#DCDCE0" stroke-width="1"/>
+  <line x1="66" y1="330" x2="70" y2="330" stroke="#DCDCE0" stroke-width="1"/>
+  <text x="62" y="334" text-anchor="end" font-family="sans-serif" font-size="9" fill="#7878EF">0</text>
+  <line x1="66" y1="287.3658887280894" x2="70" y2="287.3658887280894" stroke="#DCDCE0" stroke-width="1"/>
+  <text x="62" y="291.3658887280894" text-anchor="end" font-family="sans-serif" font-size="9" fill="#7878EF">100</text>
+  <line x1="66" y1="266.17748032000077" x2="70" y2="266.17748032000077" stroke="#DCDCE0" stroke-width="1"/>
+  <text x="62" y="270.17748032000077" text-anchor="end" font-family="sans-serif" font-size="9" fill="#7878EF">1k</text>
+  <line x1="66" y1="244.9146944189149" x2="70" y2="244.9146944189149" stroke="#DCDCE0" stroke-width="1"/>
+  <text x="62" y="248.9146944189149" text-anchor="end" font-family="sans-serif" font-size="9" fill="#7878EF">10k</text>
+  <line x1="66" y1="223.64443032710125" x2="70" y2="223.64443032710125" stroke="#DCDCE0" stroke-width="1"/>
+  <text x="62" y="227.64443032710125" text-anchor="end" font-family="sans-serif" font-size="9" fill="#7878EF">100k</text>
+  <text x="14" y="275.0" font-family="sans-serif" font-size="10" fill="#7878EF" transform="rotate(-90, 14, 275.0)">Dependent packages</text>
+  <line x1="806" y1="330" x2="806" y2="110" stroke="#DCDCE0" stroke-width="1"/>
+  <line x1="806" y1="330" x2="810" y2="330" stroke="#DCDCE0" stroke-width="1"/>
+  <text x="814" y="334" font-family="sans-serif" font-size="9" fill="#45E56E">0</text>
+  <line x1="806" y1="311.40775417191867" x2="810" y2="311.40775417191867" stroke="#DCDCE0" stroke-width="1"/>
+  <text x="814" y="315.40775417191867" font-family="sans-serif" font-size="9" fill="#45E56E">1</text>
+  <line x1="806" y1="265.681396920858" x2="810" y2="265.681396920858" stroke="#DCDCE0" stroke-width="1"/>
+  <text x="814" y="269.681396920858" font-family="sans-serif" font-size="9" fill="#45E56E">10</text>
+  <line x1="806" y1="206.20889533732452" x2="810" y2="206.20889533732452" stroke="#DCDCE0" stroke-width="1"/>
+  <text x="814" y="210.20889533732452" font-family="sans-serif" font-size="9" fill="#45E56E">100</text>
+  <line x1="806" y1="144.6868791716135" x2="810" y2="144.6868791716135" stroke="#DCDCE0" stroke-width="1"/>
+  <text x="814" y="148.6868791716135" font-family="sans-serif" font-size="9" fill="#45E56E">1.0k</text>
+  <line x1="806" y1="110.0" x2="810" y2="110.0" stroke="#DCDCE0" stroke-width="1"/>
+  <text x="814" y="114.0" font-family="sans-serif" font-size="9" fill="#45E56E">3.6k</text>
+  <text x="861" y="275.0" font-family="sans-serif" font-size="10" fill="#45E56E" transform="rotate(90, 861, 275.0)">ISC contributions</text>
+  <rect x="73" y="209.0" width="7" height="121.00000000000001" fill="#7878EF" rx="1"/>
+  <rect x="81" y="330" width="7" height="0" fill="#45E56E" rx="1"/>
+  <rect x="89" y="244.7552500740576" width="7" height="85.24474992594239" fill="#FF807D" rx="1"/>
+  <rect x="105" y="210.2971713284652" width="7" height="119.70282867153479" fill="#7878EF" rx="1"/>
+  <rect x="113" y="229.74470889265115" width="7" height="100.25529110734884" fill="#45E56E" rx="1"/>
+  <rect x="121" y="210.83502810705133" width="7" height="119.16497189294867" fill="#FF807D" rx="1"/>
+  <rect x="137" y="214.29355823090765" width="7" height="115.70644176909235" fill="#7878EF" rx="1"/>
+  <rect x="145" y="330" width="7" height="0" fill="#45E56E" rx="1"/>
+  <rect x="153" y="330" width="7" height="0" fill="#FF807D" rx="1"/>
+  <rect x="169" y="214.75272145894303" width="7" height="115.24727854105696" fill="#7878EF" rx="1"/>
+  <rect x="177" y="263.347495902139" width="7" height="66.65250409786104" fill="#45E56E" rx="1"/>
+  <rect x="185" y="292.8155083438373" width="7" height="37.18449165616272" fill="#FF807D" rx="1"/>
+  <rect x="201" y="214.90748674239364" width="7" height="115.09251325760637" fill="#7878EF" rx="1"/>
+  <rect x="209" y="110.0" width="7" height="220.0" fill="#45E56E" rx="1"/>
+  <rect x="217" y="261.2005150883247" width="7" height="68.79948491167528" fill="#FF807D" rx="1"/>
+  <rect x="233" y="215.5003356163072" width="7" height="114.4996643836928" fill="#7878EF" rx="1"/>
+  <rect x="241" y="330" width="7" height="0" fill="#45E56E" rx="1"/>
+  <rect x="249" y="330" width="7" height="0" fill="#FF807D" rx="1"/>
+  <rect x="265" y="215.8989867599057" width="7" height="114.10101324009429" fill="#7878EF" rx="1"/>
+  <rect x="273" y="277.80496716243084" width="7" height="52.19503283756916" fill="#45E56E" rx="1"/>
+  <rect x="281" y="268.2378962366442" width="7" height="61.76210376335582" fill="#FF807D" rx="1"/>
+  <rect x="297" y="216.5198527809472" width="7" height="113.48014721905282" fill="#7878EF" rx="1"/>
+  <rect x="305" y="176.04187419574126" width="7" height="153.95812580425874" fill="#45E56E" rx="1"/>
+  <rect x="313" y="191.16044186571216" width="7" height="138.83955813428784" fill="#FF807D" rx="1"/>
+  <rect x="329" y="216.71110998094372" width="7" height="113.28889001905627" fill="#7878EF" rx="1"/>
+  <rect x="337" y="330" width="7" height="0" fill="#45E56E" rx="1"/>
+  <rect x="345" y="330" width="7" height="0" fill="#FF807D" rx="1"/>
+  <rect x="361" y="217.35556916178092" width="7" height="112.64443083821908" fill="#7878EF" rx="1"/>
+  <rect x="369" y="330" width="7" height="0" fill="#45E56E" rx="1"/>
+  <rect x="377" y="330" width="7" height="0" fill="#FF807D" rx="1"/>
+  <rect x="393" y="217.6354433614187" width="7" height="112.36455663858128" fill="#7878EF" rx="1"/>
+  <rect x="401" y="330" width="7" height="0" fill="#45E56E" rx="1"/>
+  <rect x="409" y="311.40775417191867" width="7" height="18.59224582808136" fill="#FF807D" rx="1"/>
+  <rect x="425" y="218.26224350787075" width="7" height="111.73775649212925" fill="#7878EF" rx="1"/>
+  <rect x="433" y="330" width="7" height="0" fill="#45E56E" rx="1"/>
+  <rect x="441" y="330" width="7" height="0" fill="#FF807D" rx="1"/>
+  <rect x="457" y="218.66475452865126" width="7" height="111.33524547134876" fill="#7878EF" rx="1"/>
+  <rect x="465" y="330" width="7" height="0" fill="#45E56E" rx="1"/>
+  <rect x="473" y="274.2232625157559" width="7" height="55.77673748424408" fill="#FF807D" rx="1"/>
+  <rect x="489" y="218.81408371467944" width="7" height="111.18591628532057" fill="#7878EF" rx="1"/>
+  <rect x="497" y="330" width="7" height="0" fill="#45E56E" rx="1"/>
+  <rect x="505" y="311.40775417191867" width="7" height="18.59224582808136" fill="#FF807D" rx="1"/>
+  <rect x="521" y="218.82986885006858" width="7" height="111.17013114993141" fill="#7878EF" rx="1"/>
+  <rect x="529" y="215.66238977363372" width="7" height="114.33761022636628" fill="#45E56E" rx="1"/>
+  <rect x="537" y="311.40775417191867" width="7" height="18.59224582808136" fill="#FF807D" rx="1"/>
+  <rect x="553" y="228.3125130518453" width="7" height="101.68748694815471" fill="#7878EF" rx="1"/>
+  <rect x="561" y="121.11951248705319" width="7" height="208.88048751294681" fill="#45E56E" rx="1"/>
+  <rect x="569" y="300.5319875583017" width="7" height="29.468012441698317" fill="#FF807D" rx="1"/>
+  <rect x="585" y="240.24760102872705" width="7" height="89.75239897127294" fill="#7878EF" rx="1"/>
+  <rect x="593" y="158.95743022700063" width="7" height="171.04256977299937" fill="#45E56E" rx="1"/>
+  <rect x="601" y="292.8155083438373" width="7" height="37.18449165616272" fill="#FF807D" rx="1"/>
+  <rect x="617" y="243.44314876096274" width="7" height="86.55685123903726" fill="#7878EF" rx="1"/>
+  <rect x="625" y="194.2063128554833" width="7" height="135.7936871445167" fill="#45E56E" rx="1"/>
+  <rect x="633" y="277.80496716243084" width="7" height="52.19503283756916" fill="#FF807D" rx="1"/>
+  <rect x="649" y="247.81656547795131" width="7" height="82.18343452204867" fill="#7878EF" rx="1"/>
+  <rect x="657" y="165.71797964945478" width="7" height="164.28202035054522" fill="#45E56E" rx="1"/>
+  <rect x="665" y="292.8155083438373" width="7" height="37.18449165616272" fill="#FF807D" rx="1"/>
+  <rect x="681" y="248.28342284713256" width="7" height="81.71657715286744" fill="#7878EF" rx="1"/>
+  <rect x="689" y="148.47995560442263" width="7" height="181.52004439557737" fill="#45E56E" rx="1"/>
+  <rect x="697" y="179.05065171221798" width="7" height="150.94934828778202" fill="#FF807D" rx="1"/>
+  <rect x="713" y="254.01841351178916" width="7" height="75.98158648821085" fill="#7878EF" rx="1"/>
+  <rect x="721" y="153.26561479411083" width="7" height="176.73438520588917" fill="#45E56E" rx="1"/>
+  <rect x="729" y="330" width="7" height="0" fill="#FF807D" rx="1"/>
+  <rect x="745" y="260.99593694046246" width="7" height="69.00406305953757" fill="#7878EF" rx="1"/>
+  <rect x="753" y="146.45911102991647" width="7" height="183.54088897008353" fill="#45E56E" rx="1"/>
+  <rect x="761" y="231.73250264662641" width="7" height="98.26749735337359" fill="#FF807D" rx="1"/>
+  <rect x="777" y="271.0452981216673" width="7" height="58.95470187833268" fill="#7878EF" rx="1"/>
+  <rect x="785" y="159.46397291900735" width="7" height="170.53602708099265" fill="#45E56E" rx="1"/>
+  <rect x="793" y="311.40775417191867" width="7" height="18.59224582808136" fill="#FF807D" rx="1"/>
+  <text x="84" y="338" font-family="sans-serif" font-size="8" fill="#4C4C61" transform="rotate(45, 84, 338)">typescript</text>
+  <text x="116" y="338" font-family="sans-serif" font-size="8" fill="#4C4C61" transform="rotate(45, 116, 338)">eslint</text>
+  <text x="148" y="338" font-family="sans-serif" font-size="8" fill="#4C4C61" transform="rotate(45, 148, 338)">react</text>
+  <text x="180" y="338" font-family="sans-serif" font-size="8" fill="#4C4C61" transform="rotate(45, 180, 338)">mocha</text>
+  <text x="212" y="338" font-family="sans-serif" font-size="8" fill="#4C4C61" transform="rotate(45, 212, 338)">@types/node</text>
+  <text x="244" y="338" font-family="sans-serif" font-size="8" fill="#4C4C61" transform="rotate(45, 244, 338)">jest</text>
+  <text x="276" y="338" font-family="sans-serif" font-size="8" fill="#4C4C61" transform="rotate(45, 276, 338)">prettier</text>
+  <text x="308" y="338" font-family="sans-serif" font-size="8" fill="#4C4C61" transform="rotate(45, 308, 338)">webpack</text>
+  <text x="340" y="338" font-family="sans-serif" font-size="8" fill="#4C4C61" transform="rotate(45, 340, 338)">react-dom</text>
+  <text x="372" y="338" font-family="sans-serif" font-size="8" fill="#4C4C61" transform="rotate(45, 372, 338)">@babel/core</text>
+  <text x="404" y="338" font-family="sans-serif" font-size="8" fill="#4C4C61" transform="rotate(45, 404, 338)">babel-loader</text>
+  <text x="436" y="338" font-family="sans-serif" font-size="8" fill="#4C4C61" transform="rotate(45, 436, 338)">golang.org/x/sys</text>
+  <text x="468" y="338" font-family="sans-serif" font-size="8" fill="#4C4C61" transform="rotate(45, 468, 338)">eslint-plugin-import</text>
+  <text x="500" y="338" font-family="sans-serif" font-size="8" fill="#4C4C61" transform="rotate(45, 500, 338)">rimraf</text>
+  <text x="532" y="338" font-family="sans-serif" font-size="8" fill="#4C4C61" transform="rotate(45, 532, 338)">chai</text>
+  <text x="564" y="338" font-family="sans-serif" font-size="8" fill="#4C4C61" transform="rotate(45, 564, 338)">rspec</text>
+  <text x="596" y="338" font-family="sans-serif" font-size="8" fill="#4C4C61" transform="rotate(45, 596, 338)">matplotlib</text>
+  <text x="628" y="338" font-family="sans-serif" font-size="8" fill="#4C4C61" transform="rotate(45, 628, 338)">tailwindcss</text>
+  <text x="660" y="338" font-family="sans-serif" font-size="8" fill="#4C4C61" transform="rotate(45, 660, 338)">libc</text>
+  <text x="692" y="338" font-family="sans-serif" font-size="8" fill="#4C4C61" transform="rotate(45, 692, 338)">torch</text>
+  <text x="724" y="338" font-family="sans-serif" font-size="8" fill="#4C4C61" transform="rotate(45, 724, 338)">github.com/apache/thrift</text>
+  <text x="756" y="338" font-family="sans-serif" font-size="8" fill="#4C4C61" transform="rotate(45, 756, 338)">github.com/cilium/ebpf</text>
+  <text x="788" y="338" font-family="sans-serif" font-size="8" fill="#4C4C61" transform="rotate(45, 788, 338)">pacote</text>
+  <text x="438" y="460" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#4C4C61">Both axes log scale. Packages ordered by dependent package count.</text>
+</svg>
