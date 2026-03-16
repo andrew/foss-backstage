@@ -13,6 +13,26 @@ Using data from hundreds of millions of open source repositories provided by eco
 
 We look at data from 108 member organisations to answer what might seem like a simple question, in the process unpacking what it means to support, contribute, and maintain open source software. What a 'healthy' open source project looks like, and where and how we can identify and support important projects that need our help.
 
+## Data
+
+The raw JSON data (8.6GB across 358k files) and SQLite database (438MB) are compressed with [zstd](https://facebook.github.io/zstd/).
+
+To decompress everything:
+
+```sh
+# SQLite database
+zstd -d data/foss_backstage.db.zst
+
+# JSON data (each dir is a separate archive)
+for f in data/*.tar.zst; do
+  zstd -d "$f" --stdout | tar xf -
+done
+```
+
+## License
+
+Code and data are licensed under [CC-BY-SA-4.0](LICENSE).
+
 ## Notes
 
 Some of the questions we set out to answer:
