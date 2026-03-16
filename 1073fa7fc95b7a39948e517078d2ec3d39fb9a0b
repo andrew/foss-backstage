@@ -1,0 +1,35 @@
+.gitignore
+  bffcdb68eaf4dbf3 2
+findings.md
+  bffcdb68eaf4dbf3 21,23-25,31,41-44,48,60-61,68-69,72
+charts/consumption_vs_contribution.svg
+  bffcdb68eaf4dbf3 3-5
+tasks/package_repos.rake
+  bffcdb68eaf4dbf3 1-103
+charts/contribution_types_pie.svg
+  bffcdb68eaf4dbf3 2
+charts/schema.txt
+  bffcdb68eaf4dbf3 1,3-9,11-13,15,17-21,24-27,32-33
+tasks/db.rake
+  bffcdb68eaf4dbf3 77-88,286-289,293-298
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.12",
+  "base_commit_sha": "1073fa7fc95b7a39948e517078d2ec3d39fb9a0b",
+  "prompts": {
+    "bffcdb68eaf4dbf3": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "233c39d9-9c25-422a-99af-3914d5f0861a",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Andrew Nesbitt <andrewnez@gmail.com>",
+      "messages": [],
+      "total_additions": 291,
+      "total_deletions": 115,
+      "accepted_lines": 173,
+      "overriden_lines": 15
+    }
+  }
+}
