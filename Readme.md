@@ -2,6 +2,7 @@
 
 Talk for FOSS Backstage 2025 by Benjamin Nickolls and Andrew Nesbitt.
 
+- [Slides](Is%20InnerSource%20Commons%20good%20for%20open%20source.pdf)
 - [Findings](findings.md) -- what the data shows
 - [Method](method.md) -- how we collected and processed the data
 
