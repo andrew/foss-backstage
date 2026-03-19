@@ -12,7 +12,7 @@ GEM
       net-http (~> 0.5)
     faraday-retry (2.4.0)
       faraday (~> 2.0)
-    json (2.19.1)
+    json (2.19.2)
     logger (1.7.0)
     net-http (0.9.1)
       uri (>= 0.11.1)
@@ -21,10 +21,12 @@ GEM
       addressable (~> 2.8)
     rake (13.3.1)
     sqlite3 (2.9.1-arm64-darwin)
+    sqlite3 (2.9.1-x86_64-linux-gnu)
     uri (1.1.1)
 
 PLATFORMS
   arm64-darwin-24
+  x86_64-linux
 
 DEPENDENCIES
   csv
@@ -41,13 +43,14 @@ CHECKSUMS
   faraday (2.14.1) sha256=a43cceedc1e39d188f4d2cdd360a8aaa6a11da0c407052e426ba8d3fb42ef61c
   faraday-net_http (3.4.2) sha256=f147758260d3526939bf57ecf911682f94926a3666502e24c69992765875906c
   faraday-retry (2.4.0) sha256=7b79c48fb7e56526faf247b12d94a680071ff40c9fda7cf1ec1549439ad11ebe
-  json (2.19.1) sha256=dd94fdc59e48bff85913829a32350b3148156bc4fd2a95a2568a78b11344082d
+  json (2.19.2) sha256=e7e1bd318b2c37c4ceee2444841c86539bc462e81f40d134cf97826cb14e83cf
   logger (1.7.0) sha256=196edec7cc44b66cfb40f9755ce11b392f21f7967696af15d274dde7edff0203
   net-http (0.9.1) sha256=25ba0b67c63e89df626ed8fac771d0ad24ad151a858af2cc8e6a716ca4336996
   public_suffix (7.0.5) sha256=1a8bb08f1bbea19228d3bed6e5ed908d1cb4f7c2726d18bd9cadf60bc676f623
   purl (1.7.1) sha256=459aecf3e0e2199bdfafa2885731b39af7c081dcd1d63d7ec036aab732e56ed3
   rake (13.3.1) sha256=8c9e89d09f66a26a01264e7e3480ec0607f0c497a861ef16063604b1b08eb19c
   sqlite3 (2.9.1-arm64-darwin) sha256=e0cc5521aa03361e2da56635f3745242510b0b98c4608a3824b7e31ab2e7ffb9
+  sqlite3 (2.9.1-x86_64-linux-gnu) sha256=1cbb644204ed143e5c96f6d59b5c571ba6f18b18a9dc5aa11c101187ff227afd
   uri (1.1.1) sha256=379fa58d27ffb1387eaada68c749d1426738bd0f654d812fcc07e7568f5c57c6
 
 BUNDLED WITH
